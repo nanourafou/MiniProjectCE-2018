@@ -13,7 +13,7 @@ public class Coordinate {
      * @param coordinate : The coordinate of the point.
      */
     public Coordinate(double coordinate){
-        _coordinate = coordinate;
+        _coordinate = (getExp(coordinate) < ACCURACY) ? 0.0 : coordinate;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Coordinate {
         if(obj==null)return false;
         if(!(obj instanceof Coordinate))
             return false;
-        return Math.abs(_coordinate-((Coordinate)obj)._coordinate)<Models.DELTA_ERROR;
+        return Coordinate.sub(this,(Coordinate)obj)._coordinate== 0.0;
     }
 
     @Override
@@ -50,28 +50,43 @@ public class Coordinate {
 
     // ***************** Operations ******************** //
 
-    /***
-     * Function for addition of two Coordinates.
-     * @param obj1 The coordinate to add (Operand-1).
-     * @param obj The coordinate to add (Operand-2).
-     * @return The coordinate resulted by the addition.
-     */
-    public static Coordinate add(Coordinate obj1, Coordinate obj){
-        double newCoordinate = obj1._coordinate + obj._coordinate;
-        return new Coordinate(newCoordinate);
+
+
+    public static Coordinate sub(Coordinate me, Coordinate other) {
+        int otherExp = getExp(other._coordinate);
+        int thisExp = getExp(me._coordinate);
+
+
+
+        if (otherExp - thisExp < ACCURACY)
+            return new Coordinate(me._coordinate);
+
+        if (thisExp - otherExp < ACCURACY)
+            return new Coordinate(-other._coordinate);
+
+        double result = me._coordinate - other._coordinate;
+
+        int resultExp = getExp(result);
+        return resultExp < ACCURACY ? new Coordinate(0) : new Coordinate(result);
     }
 
-    /**
-     * Function for subtraction of two Coordinates.
-     * @param obj1 The coordinate to subtract (Operand-1).
-     * @param obj The coordinate to subtract (Operand-2).
-     * @return The coordinate resulted by the subtraction (obj1-obj).
-     */
-    public static Coordinate sub(Coordinate obj1, Coordinate obj){
-        double newCoordinate = obj1._coordinate - obj._coordinate;
-        return new Coordinate(newCoordinate);
-    }
 
+    public static Coordinate add(Coordinate me, Coordinate other) {
+        int otherExp = getExp(other._coordinate);
+        int thisExp = getExp(me._coordinate);
+
+
+        if (otherExp - thisExp < ACCURACY)
+            return new Coordinate(me._coordinate);
+
+        if (thisExp - otherExp < ACCURACY)
+            return new Coordinate(other._coordinate);
+
+        double result = me._coordinate + other._coordinate;
+
+        int resultExp = getExp(result);
+        return resultExp < ACCURACY ? new Coordinate(0.0) : new Coordinate(result);
+    }
 
     /**
      * @param c1 The coordinate to multiply (Operand-1).
@@ -81,4 +96,13 @@ public class Coordinate {
     public static Coordinate mult(Coordinate c1, Coordinate c2){
         return new Coordinate(c1._coordinate * c2._coordinate);
     }
+
+
+    private static final int ACCURACY = -20;
+
+    public static int getExp(double num) {
+        return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
+    }
+
+
 }

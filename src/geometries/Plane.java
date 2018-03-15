@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -40,6 +41,22 @@ public class Plane extends Geometry {
             _vector2 = new Vector(v2);
             _p = new Point3D(p);
         }
+    }
+
+    public Plane(Point3D x, Point3D y, Point3D z){
+        Ray xy = new Ray(x,y);
+        Ray xz = new Ray(x,z);
+        Ray yz = new Ray(y,z);
+        _vector1=xy.getDirection();
+        _vector2=xz.getDirection();
+        
+        if(_vector1.isColinear(_vector2)){
+            if (yz.getDirection().isColinear(_vector2))
+                throw new Exception("Can't create a colinear plane");
+        }
+
+
+
     }
 
     /**

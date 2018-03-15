@@ -6,7 +6,7 @@ import primitives.Vector;
 /**
  * The class describing a Triangle in space.
  */
-public class Triangle extends Geometry {
+public class Triangle extends Plane {
     /***
      * Fields
      */
