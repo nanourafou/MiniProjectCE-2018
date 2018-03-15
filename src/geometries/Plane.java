@@ -60,6 +60,9 @@ public class Plane extends Geometry {
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+
         if(!(obj instanceof Plane))
             return false;
         Plane toCompare = (Plane)obj;
@@ -69,7 +72,7 @@ public class Plane extends Geometry {
         if(this._vector2.equals(toCompare._vector1))
             return this._p.equals(toCompare._p)&&this._vector1.equals(toCompare._vector2);
 
-        return _vector1.equals(toCompare._vector1)&&_vector2.equals(toCompare._vector2)&& _p.equals(toCompare._vector2);
+        return _vector1.equals(toCompare._vector1)&&_vector2.equals(toCompare._vector2)&& _p.equals(toCompare._p);
 
     }
 

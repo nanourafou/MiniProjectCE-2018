@@ -10,9 +10,9 @@ import primitives.Vector;
  */
 public class Cylinder  extends RadialGeometry{
 
-    Point3D _originPoint;
-    Ray _directionRay;
-    double _height;
+    private Point3D _originPoint;
+    private Ray _directionRay;
+    private double _height;
 
     // ***************** Constructors ********************** //
     /**
@@ -21,7 +21,7 @@ public class Cylinder  extends RadialGeometry{
      * @param origin Original position for the cylinder.
      * @param height The height of the cylinder.
      */
-    public Cylinder(Ray directionRay, Point3D radius, Point3D origin, double height){
+    public Cylinder(Ray directionRay, double radius, Point3D origin, double height){
         super(radius);
         this._directionRay = new Ray(directionRay);
         this._height = height;
@@ -47,6 +47,8 @@ public class Cylinder  extends RadialGeometry{
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
         if(!(obj instanceof Cylinder))
             return false;
         Cylinder toCompare = (Cylinder)obj;

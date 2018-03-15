@@ -10,14 +10,14 @@ public class Sphere extends RadialGeometry {
     /***
      * Fields
      */
-    Point3D _center;
+    private Point3D _center;
 
     // ***************** Constructors ********************** //
 
     /***
      * Constructor of the class.
      */
-    public Sphere(Point3D center, Point3D radius){
+    public Sphere(Point3D center, double radius){
         super(radius);
         _center=new Point3D(center);
     }
@@ -45,6 +45,16 @@ public class Sphere extends RadialGeometry {
         return "Sphere: \n "+super.toString()+"\n Center "+_center;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if(!(obj instanceof Sphere))
+            return false;
+        return super.equals(obj)&&this._center.equals(((Sphere)obj)._center);
+
+    }
+
     /***
      * @param p The point of the sphere.
      * @return The vector normal.
@@ -52,4 +62,5 @@ public class Sphere extends RadialGeometry {
     public Vector getNormal(Point3D p){
         return null;
     }
+
 }

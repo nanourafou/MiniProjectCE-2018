@@ -10,17 +10,17 @@ import primitives.Point3D;
 
 public abstract class RadialGeometry extends Geometry {
 
-    Point3D _radius; //Vector, Point3D, double ??
+    private double _radius; //Vector, Point3D, double ??
 
     // ***************** Constructors ********************** //
     public RadialGeometry(RadialGeometry x){
         super(x);
-        _radius = new Point3D(x._radius);
+        _radius = x._radius;
     }
 
-    public RadialGeometry(Point3D radius){
+    public RadialGeometry(double radius){
         super(); //need this ???
-        _radius = new Point3D(radius);
+        _radius = radius;
     }
 
     public RadialGeometry(){}
@@ -30,7 +30,7 @@ public abstract class RadialGeometry extends Geometry {
     /**
      * @return the radius of the radial object
      */
-    public Point3D getRadius() {
+    public double getRadius() {
         return _radius;
     }
 
@@ -50,6 +50,8 @@ public abstract class RadialGeometry extends Geometry {
 
     @Override
     public boolean equals(Object obj) {
-        return _radius.equals(obj);
+        if (this == obj) return true;
+        if (obj == null) return false;
+        return _radius==((RadialGeometry)obj)._radius;
     }
 }

@@ -70,7 +70,7 @@ public class Triangle extends Geometry {
      * @param valueChecked Vector contains all values checked.
      * @return True: if value was equals in a value in the array valueToverify.
      */
-    public boolean testMultiplevalues(Point3D x, Point3D[] valueToVerify,  java.util.Vector valueChecked){
+    private boolean testMultiplevalues(Point3D x, Point3D[] valueToVerify, java.util.Vector valueChecked){
 
         for (int i=0;i<3;i++)
         {
@@ -90,6 +90,9 @@ public class Triangle extends Geometry {
     public boolean equals(Object obj) {
         if (!(obj instanceof Triangle))
             return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+
         Point3D [] arrayToCheck = new Point3D[]{((Triangle) obj)._p1,((Triangle) obj)._p2,((Triangle) obj)._p3}; //Array of all values in the triangles to compare
         java.util.Vector indexChecked = new java.util.Vector();
         return testMultiplevalues(_p1,arrayToCheck, indexChecked)&&
