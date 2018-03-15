@@ -36,6 +36,8 @@ public class Coordinate {
     // ***************** Administration  ******************** //
     @Override
     public boolean equals(Object obj) {
+        if(this==obj)return true;
+        if(obj==null)return false;
         if(!(obj instanceof Coordinate))
             return false;
         return Math.abs(_coordinate-((Coordinate)obj)._coordinate)<Models.DELTA_ERROR;

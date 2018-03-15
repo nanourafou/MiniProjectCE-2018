@@ -60,6 +60,8 @@ public class Point2D {
      */
     @Override
     public boolean equals(Object obj) {
+        if(this==obj)return true;
+        if(obj==null)return false;
         if (!(obj instanceof Point2D))
             return false;
         Point2D toCompareObj = (Point2D) obj;

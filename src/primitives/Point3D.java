@@ -54,6 +54,8 @@ public class Point3D extends Point2D {
     // ***************** Administration  ******************** //
     @Override
     public boolean equals(Object obj) {
+        if(this==obj)return true;
+        if(obj==null)return false;
         if (!(obj instanceof Point3D))
             return false;
         Point3D toCompareObj = (Point3D) obj;
