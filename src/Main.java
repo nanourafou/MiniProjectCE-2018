@@ -20,9 +20,9 @@ import primitives.Ray;
  *   yaacovchelly@hotmail.fr *
  *                           *
  *          1382007          *
- * ************************* *
- *
+ * *************************
  */
+
 public class Main {
 
     //Color constantes
