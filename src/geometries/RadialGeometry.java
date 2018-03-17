@@ -34,12 +34,6 @@ public abstract class RadialGeometry extends Geometry {
         return _radius;
     }
 
-    /*
-    public double getRadius(){
-        return Models.ORIGIN.distance(_radius); //Fixed to center ????
-    }
-    */
-
 
     // ***************** Administration  ******************** //
 

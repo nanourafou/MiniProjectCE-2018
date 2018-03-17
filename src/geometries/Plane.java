@@ -32,9 +32,9 @@ public class Plane extends Geometry {
      * @param v2 The vector director (need to not be colinear with v1).
      * @param p The point who will be on the plane.
      */
-    public Plane(Vector v1, Vector v2, Point3D p){
-        //if(Vector.crossProdcut(v1,v2).size()==0)
-            //throw new Exception("Can't define a plan with two colinear vectors");
+    public Plane(Vector v1, Vector v2, Point3D p) throws Exception{
+        if(Vector.crossProdcut(v1,v2).size()==0)
+            throw new Exception("Can't define a plan with two colinears vectors");
         if(!v1.isColinear(v2)) // if n
         {
             _vector1 = new Vector(v1);
@@ -43,19 +43,25 @@ public class Plane extends Geometry {
         }
     }
 
-    public Plane(Point3D x, Point3D y, Point3D z){
-        Ray xy = new Ray(x,y);
-        Ray xz = new Ray(x,z);
-        Ray yz = new Ray(y,z);
-        _vector1=xy.getDirection();
-        _vector2=xz.getDirection();
-        
-        if(_vector1.isColinear(_vector2)){
-            if (yz.getDirection().isColinear(_vector2))
-                throw new Exception("Can't create a colinear plane");
+    public Plane(Point3D x, Point3D y, Point3D z) throws Exception{
+        Vector v1 = new Vector(x);
+        Vector v2 = new Vector(y);
+
+        if(v1.isColinear(v2)) {
+            v2 = new Vector(z);
+
+            if (v1.isColinear(v2)){
+                throw new Exception("Can't define a plan with two colinears vectors");
+            }
+
+            this._p = new Point3D(y);
+        }
+        else {
+            this._p = new Point3D(z);
         }
 
-
+        _vector1 = v1;
+        _vector2 = v2;
 
     }
 
@@ -120,6 +126,6 @@ public class Plane extends Geometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        return null;
+        return Vector.crossProdcut(_vector1,_vector2);
     }
 }
