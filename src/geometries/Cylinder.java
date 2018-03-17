@@ -80,8 +80,18 @@ public class Cylinder  extends RadialGeometry{
 
     // ***************** Operations ******************** //
 
-    @Override
-    public Vector getNormal(Point3D p) {
-        return null;
+    /***
+     * @param p The point of the sphere.
+     * @return The vector normal.
+     */
+    public Vector getNormal(Point3D p) throws Exception{
+
+        if(Math.pow(p.getX().get(),2)+Math.pow(p.getY().get(),2)==Math.pow(_radius,2)) { //x^2 + y^2 = r^2
+            Vector v = new Vector(p);
+            return v.getNormalVector();
+        }
+        else {
+            throw new Exception("The point isn't on the Cylinder !");
+        }
     }
 }

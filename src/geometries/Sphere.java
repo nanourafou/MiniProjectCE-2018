@@ -59,8 +59,15 @@ public class Sphere extends RadialGeometry {
      * @param p The point of the sphere.
      * @return The vector normal.
      */
-    public Vector getNormal(Point3D p){
-        return null;
+    public Vector getNormal(Point3D p) throws Exception{
+
+        if(p.distance(_center)==_radius) {
+            Vector v = new Vector(p);
+            return v.getNormalVector();
+        }
+        else {
+            throw new Exception("The point isn't on the sphere !");
+        }
     }
 
 }

@@ -33,8 +33,10 @@ public class Plane extends Geometry {
      * @param p The point who will be on the plane.
      */
     public Plane(Vector v1, Vector v2, Point3D p) throws Exception{
+
         if(Vector.crossProdcut(v1,v2).size()==0)
             throw new Exception("Can't define a plan with two colinears vectors");
+
         if(!v1.isColinear(v2)) // if n
         {
             _vector1 = new Vector(v1);

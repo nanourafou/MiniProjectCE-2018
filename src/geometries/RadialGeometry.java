@@ -10,7 +10,7 @@ import primitives.Point3D;
 
 public abstract class RadialGeometry extends Geometry {
 
-    private double _radius; //Vector, Point3D, double ??
+    protected double _radius; //Vector, Point3D, double ??
 
     // ***************** Constructors ********************** //
     public RadialGeometry(RadialGeometry x){
