@@ -13,6 +13,7 @@ public class Cylinder  extends RadialGeometry{
     private Ray _directionRay;
     private double _height;
 
+
     // ***************** Constructors ********************** //
     /**
      * Constructor for a Cylinder.
@@ -86,4 +87,6 @@ public class Cylinder  extends RadialGeometry{
         //         / (_directionRay.getDirection().dotProduct(_directionRay.getDirection())
         return null;
     }
+
+
 }

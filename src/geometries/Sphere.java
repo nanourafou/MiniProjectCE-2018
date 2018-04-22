@@ -1,12 +1,15 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * The class describing a Sphere in space.
  */
-public class Sphere extends RadialGeometry {
+public class Sphere extends RadialGeometry implements IGeometry{
     /***
      * Fields
      */
@@ -61,6 +64,36 @@ public class Sphere extends RadialGeometry {
      */
     public Vector getNormal(Point3D p){
       return   Vector.normalize(p.subVector(p));
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray myRay) {
+        Vector l = _center.subVector(myRay.getOrigin());
+        double tm = l.dotProduct(myRay.getDirection());
+        double d = Math.sqrt(Math.pow(l.size(), 2) - Math.pow(tm, 2));
+
+        if (d > this._radius)
+            return null;
+
+        double th = Math.sqrt(Math.pow(_radius, 2) - Math.pow(d, 2));
+
+        double t1 = tm - th;
+        double t2 = tm + th;
+
+        java.util.Vector<Point3D> lst = new java.util.Vector<Point3D>();
+
+        if (t1 > 0) {
+            Vector v1 = Vector.mult(myRay.getDirection(), t1);
+            Point3D p1 = Point3D.addVector(myRay.getOrigin(), v1);
+            lst.add(p1);
+        }
+
+        if (t2 > 0) {
+            Vector v2 = Vector.mult(myRay.getDirection(), t2);
+            Point3D p2 = Point3D.addVector(myRay.getOrigin(), v2);
+            lst.add(p2);
+        }
+        return lst;
     }
 
 }
