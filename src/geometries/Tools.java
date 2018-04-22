@@ -1,7 +1,5 @@
 package geometries;
 
-import primitives.Point3D;
-
 /**
  * This Class contains useful tools and methods for the geometries packages.
  */

@@ -1,8 +1,5 @@
 package geometries;
 
-import primitives.Models;
-import primitives.Point3D;
-
 /**
  * Abstract class who describing all radial geometries in spaces.
  */

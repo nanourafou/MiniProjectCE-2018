@@ -87,6 +87,14 @@ public class Point3D extends Point2D {
      * @param vec The vector to add (Operand-2).
      * @return A new point resulted by addition of a vector and another point.
      */
+    /*public static Point3D addVector(Point3D p, Vector vec){
+        Coordinate x = Coordinate.add(p._x,vec.getHead()._x);
+        Coordinate y = Coordinate.add(p._y,vec.getHead()._y);
+        Coordinate z = Coordinate.add(p._z,vec.getHead()._z);
+        return new Point3D(x,y,z);
+    }*/
+
+
     public static Point3D addVector(Point3D p, Vector vec){
         Coordinate x = Coordinate.add(p._x,vec.getHead()._x);
         Coordinate y = Coordinate.add(p._y,vec.getHead()._y);
@@ -96,13 +104,12 @@ public class Point3D extends Point2D {
 
     /**
      * @param p The 3D point to subtract (Operand-1).
-     * @param vec The vector to subtract (Operand-2).
      * @return A new vector resulted by subtraction of a vector and another point.
      */
-    public static Vector subVector(Point3D p,Vector vec){
-        Coordinate x = Coordinate.sub(p._x,vec.getHead()._x);
-        Coordinate y = Coordinate.sub(p._y,vec.getHead()._y);
-        Coordinate z = Coordinate.sub(p._z,vec.getHead()._z);
+    public Vector subVector(Point3D p){
+        Coordinate x = Coordinate.sub(p._x,getX());
+        Coordinate y = Coordinate.sub(p._y,getY());
+        Coordinate z = Coordinate.sub(p._z,getZ());
         Point3D p1= new Point3D(x,y,z);
         return new Vector(p1); //Why don't return point !
     }

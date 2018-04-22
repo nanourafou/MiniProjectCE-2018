@@ -150,9 +150,9 @@ public class Vector {
     public Vector getNormalVector(){
 
         Coordinate x = new Coordinate(0);
-        Coordinate y = new Coordinate(-1*_head._z.get());
-        Coordinate z = new Coordinate(_head._y);
-        return new Vector(new Point3D(x,y,z));//Chelli pas daccord !!
+        Coordinate y = new Coordinate(-1*_head._z.get()/size());
+        Coordinate z = new Coordinate(_head._y.get()/size());
+        return new Vector(new Point3D(x,y,z));  //Chelli pas daccord !!
     }
 
     /***
@@ -166,6 +166,13 @@ public class Vector {
         return false;
     }
 
+    public static Vector normalize(Vector v){
+        double x = v.getHead().getX().get() / v.size();
+        double y = v.getHead().getY().get() / v.size();
+        double z = v.getHead().getZ().get() / v.size();
+
+        return new Vector(x,y,z);
+    }
 
     /**
      * @return The reverse vector -v.

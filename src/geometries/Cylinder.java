@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Models;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -82,6 +81,9 @@ public class Cylinder  extends RadialGeometry{
 
     @Override
     public Vector getNormal(Point3D p) {
+        //Vector u = Vector.sub(p,_directionRay.getDirection());
+       // Point3D proj = Vector.mult(_directionRay.getDirection(),u.dotProduct(_directionRay.getDirection()))
+        //         / (_directionRay.getDirection().dotProduct(_directionRay.getDirection())
         return null;
     }
 }
