@@ -19,6 +19,6 @@ public abstract class Geometry {
      * @param p the point of/in the object
      * @return the normal vector of the object
      */
-    public abstract Vector getNormal(Point3D p);
+    public abstract Vector getNormal(Point3D p) throws Exception;
 
 }
