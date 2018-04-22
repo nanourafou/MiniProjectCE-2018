@@ -1,6 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
+
+import java.util.List;
 
 /**
  * The class describing a Triangle in space.
@@ -95,5 +99,36 @@ public class Triangle extends Plane {
     }
 
 
+    @Override
+    public List<Point3D> findIntersections(Ray myRay){
+        List<Point3D> lst = (super.findIntersections(myRay)); //Get the intersection of the father
+        Point3D p = lst.get(0);
+
+        if(p==null)
+            return null;
+
+        Vector v1 = _p1.subVector(myRay.getOrigin());
+        Vector v2 = _p2.subVector(myRay.getOrigin());
+        Vector v3 = _p3.subVector(myRay.getOrigin());
+
+        Vector n1 = Vector.normalize(Vector.crossProdcut(v1,v2));
+        Vector n2 = Vector.normalize(Vector.crossProdcut(v2,v3));
+        Vector n3 = Vector.normalize(Vector.crossProdcut(v3,v1));
+
+        double s1 = (p.subVector(myRay.getOrigin())).dotProduct(n1);
+        double s2 = (p.subVector(myRay.getOrigin())).dotProduct(n2);
+        double s3 = (p.subVector(myRay.getOrigin())).dotProduct(n3);
+
+        if(s1==0 || s2==0 || s3==0)
+            return null;
+        if(Tools.sameSign(new double[] {s1,s2,s3}))
+            return lst; //return p
+        else
+            return null;
+
+
+
+
+    }
 
 }

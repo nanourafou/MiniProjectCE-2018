@@ -1,12 +1,15 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * The class describing a Plane in space.
  */
-public class Plane extends Geometry {
+public class Plane extends Geometry implements IGeometry {
 
     private Point3D _p;
     private Vector  _normal;
@@ -105,5 +108,29 @@ public class Plane extends Geometry {
     @Override
     public Vector getNormal(Point3D p) {
         return _normal;
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray myRay) {
+
+        double denom = _normal.dotProduct(myRay.getDirection());
+
+        if(denom==0)
+            return null; //prevent divide by zero
+
+        Vector d = this._p.subVector(myRay.getOrigin());
+
+        double t = _normal.dotProduct(d) / denom;
+
+        Vector v = Vector.mult(myRay.getDirection(),t);
+
+        Point3D p = Point3D.addVector(myRay.getOrigin(), v);
+
+        java.util.Vector<Point3D> lst = new java.util.Vector<Point3D>();
+
+        lst.add(p);
+
+        return lst;
+
     }
 }
