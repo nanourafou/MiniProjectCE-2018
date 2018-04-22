@@ -4,12 +4,13 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The class describing a Sphere in space.
  */
-public class Sphere extends RadialGeometry implements IGeometry{
+public class Sphere extends RadialGeometry {
     /***
      * Fields
      */
@@ -63,7 +64,7 @@ public class Sphere extends RadialGeometry implements IGeometry{
      * @return The vector normal.
      */
     public Vector getNormal(Point3D p){
-      return   Vector.normalize(p.subVector(p));
+      return   p.subVector(p).normalize();
     }
 
     @Override
@@ -80,17 +81,17 @@ public class Sphere extends RadialGeometry implements IGeometry{
         double t1 = tm - th;
         double t2 = tm + th;
 
-        java.util.Vector<Point3D> lst = new java.util.Vector<Point3D>();
+        List<Point3D> lst = new ArrayList<Point3D>();
 
         if (t1 > 0) {
-            Vector v1 = Vector.mult(myRay.getDirection(), t1);
-            Point3D p1 = Point3D.addVector(myRay.getOrigin(), v1);
+            Vector v1 = myRay.getDirection().mult(t1);
+            Point3D p1 = myRay.getOrigin().addVector(v1);
             lst.add(p1);
         }
 
         if (t2 > 0) {
-            Vector v2 = Vector.mult(myRay.getDirection(), t2);
-            Point3D p2 = Point3D.addVector(myRay.getOrigin(), v2);
+            Vector v2 = myRay.getDirection().mult(t2);
+            Point3D p2 = myRay.getOrigin().addVector(v2);
             lst.add(p2);
         }
         return lst;

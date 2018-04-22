@@ -70,36 +70,34 @@ public class Vector {
     // ***************** Operations ******************** //
 
     /**
-     * @param v1 The first vector to add.
-     * @param v2 The second vector to add.
+     * @param v2 The vector to add.
      * @return Vector addition v1+v2.
      */
-    public static Vector add(Vector v1, Vector v2){
-        Coordinate x = Coordinate.add(v1._head._x,v2._head._x);
-        Coordinate y = Coordinate.add(v1._head._y,v2._head._y);
-        Coordinate z = Coordinate.add(v1._head._z,v2._head._z);
-        return new Vector(new Point3D(x, y, z));
+    public  Vector add(Vector v2){
+        Coordinate x = this.getHead()._x.add(v2._head._x);
+        Coordinate y = this.getHead()._y.add(v2._head._y);
+        Coordinate z = this.getHead()._x.add(v2._head._z);
+        return new Vector(x, y, z);
     }
 
     /**
-     * @param v1 The first vector to subtract.
-     * @param v2 The second vector to subtract.
+     * @param v2 The vector to subtract.
      * @return Vector subtraction v1-v2.
      */
-    public static  Vector sub(Vector v1, Vector v2) {
-        return Vector.add(v1, v2.getReverseVector());
+    public  Vector sub(Vector v2) {
+        return this.add(v2.getReverseVector());
     }
 
     /**
-     * @param v The vector to multiply.
+
      * @param scalar The scalar for the multiplication
      * @return Vector multiplied by scalar
      */
-    public static Vector mult(Vector v, double scalar){
-        Coordinate x = new Coordinate(scalar*v._head._x.get());
-        Coordinate y = new Coordinate(scalar*v._head._y.get());
-        Coordinate z = new Coordinate(scalar*v._head._z.get());
-        return new Vector(new Point3D(x,y,z));
+    public Vector mult(double scalar){
+        Coordinate x = new Coordinate(scalar*this._head._x.get());
+        Coordinate y = new Coordinate(scalar*this._head._y.get());
+        Coordinate z = new Coordinate(scalar*this._head._z.get());
+        return new Vector(x,y,z);
     }
 
     /**
@@ -115,45 +113,29 @@ public class Vector {
 
 
     /**
-     * @param u Vector operand 1.
-     * @param v Vector operand 2.
+     * @param v Vector operand.
      * @return UxV (Cross Product between vectors).
      */
-    public static Vector crossProdcut(Vector u, Vector v){
-        Coordinate x = Coordinate.sub(
-                Coordinate.mult(u._head._y,v._head._z), Coordinate.mult(u._head._z,v._head._y)
-        );
+    public Vector crossProdcut(Vector v){
 
-        Coordinate y = Coordinate.sub(
-                Coordinate.mult(u._head._z,v._head._x), Coordinate.mult(u._head._x,v._head._z)
-        );
+        //Alias
+        Point3D p = this.getHead();
+        Point3D pv = v.getHead();
 
-        Coordinate z = Coordinate.sub(
-                Coordinate.mult(u._head._x,v._head._y), Coordinate.mult(u._head._y,v._head._x)
-        );
+        Coordinate x = (p._y.mult(pv._z)).sub((pv._y.mult(p._z)));
+        Coordinate y = (p._z.mult(pv._x)).sub((pv._z.mult(p._x)));
+        Coordinate z = (p._x.mult(pv._y)).sub((pv._x.mult(p._y)));
 
-        return new Vector(new Point3D(x,y,z));
+        return new Vector(x,y,z);
     }
 
     /**
      * @return The size of the vector.
      */
     public double size() {
-        return Math.sqrt(
-                this.dotProduct(this)
-        );
+        return Math.sqrt(this.dotProduct(this));
     }
 
-    /**
-     * @return The normal vector of the object.
-     */
-    public Vector getNormalVector(){
-
-        Coordinate x = new Coordinate(0);
-        Coordinate y = new Coordinate(-1*_head._z.get()/size());
-        Coordinate z = new Coordinate(_head._y.get()/size());
-        return new Vector(new Point3D(x,y,z));  //Chelli pas daccord !!
-    }
 
     /***
      * @param v The vector who with test the colinearity
@@ -161,15 +143,18 @@ public class Vector {
      */
     public boolean isColinear(Vector v){
         // If the cross product of two vector is null there are colinear.
-        if(crossProdcut(this, v).size()==0)
-            return true;
-        return false;
+        return (this.crossProdcut(this).size()==0); // A revoir
     }
 
-    public static Vector normalize(Vector v){
-        double x = v.getHead().getX().get() / v.size();
-        double y = v.getHead().getY().get() / v.size();
-        double z = v.getHead().getZ().get() / v.size();
+
+    /**
+     * @return A new Vector normalised
+     */
+    public Vector normalize(){
+        double size = size();
+        double x = getHead().getX().get() / size;
+        double y = getHead().getY().get() / size;
+        double z = getHead().getZ().get() / size;
 
         return new Vector(x,y,z);
     }
@@ -178,7 +163,7 @@ public class Vector {
      * @return The reverse vector -v.
      */
     public Vector getReverseVector() {
-        return mult(this,-1);
+        return this.mult(-1);
     }
 
 

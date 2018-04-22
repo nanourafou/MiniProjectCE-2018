@@ -6,10 +6,10 @@ import primitives.Vector;
 
 public class Camera {
 
-    Point3D _p0;
-    Vector _vToward;
-    Vector _vUp;
-    Vector _vRight;
+    private Point3D _p0;
+    private Vector _vToward;
+    private Vector _vUp;
+    private Vector _vRight;
 
 
     /**
@@ -25,7 +25,7 @@ public class Camera {
      */
     public Ray constructRayThoughPixel(int Nx,int Ny,int i,int j,double screenDistance,double width,double height){
 
-        Point3D pc = Point3D.addVector(_p0,Vector.mult(_vToward,screenDistance)); // Pc = P0 + d*_vToward
+        Point3D pc = _p0.addVector(_vToward.mult(screenDistance));
 
         double Rx = width/Nx;
         double Ry = height/Ny;
@@ -36,11 +36,7 @@ public class Camera {
         double  x = (i-(Nx+1/2))*Rx;
         double  y = (j-(Ny+1/2))*Ry;
 
-        Point3D p =
-                Point3D.addVector(pc,
-                    Vector.sub(
-                        Vector.mult(_vRight,x),
-                        Vector.mult(_vUp,y)));
+        Point3D p = pc.addVector((_vRight.mult(x)).sub(_vUp.mult(y)));
 
         Vector v = p.subVector(_p0);
 
@@ -61,9 +57,9 @@ public class Camera {
         if(towardVector.isColinear(upVector))
             throw new Exception("Not Orthogonals vectors");
 
-        _vToward = Vector.normalize(towardVector);
-        _vUp = Vector.normalize(upVector);
-        _vRight = new Vector(Vector.crossProdcut(towardVector,upVector));
+        _vToward = towardVector.normalize();
+        _vUp = upVector.normalize();
+        _vRight = towardVector.crossProdcut(upVector);
 
         _p0 = new Point3D(centerPosition);
 

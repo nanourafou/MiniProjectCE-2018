@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * The class describing a Cylinder in space.
  */
@@ -87,6 +89,9 @@ public class Cylinder  extends RadialGeometry{
         //         / (_directionRay.getDirection().dotProduct(_directionRay.getDirection())
         return null;
     }
+
+    @Override
+    public List<Point3D> findIntersections(Ray myRay){ return null;}
 
 
 }

@@ -4,12 +4,13 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The class describing a Plane in space.
  */
-public class Plane extends Geometry implements IGeometry {
+public class Plane extends Geometry {
 
     private Point3D _p;
     private Vector  _normal;
@@ -26,25 +27,13 @@ public class Plane extends Geometry implements IGeometry {
         this._p = new Point3D(point);
     }
 
+
     /**
-     * Constructor for a plane.
-     * @param v1 The vector director (vector normal deduced).
-     * @param v2 The vector director (need to not be colinear with v1).
-     * @param p The point who will be on the plane.
+     * @param x The Coordinate x
+     * @param y The Coordinate y
+     * @param z The Coordinate y
      */
-    public Plane(Vector v1, Vector v2, Point3D p) throws Exception{
-
-        if(Vector.crossProdcut(v1,v2).size()==0)
-            throw new Exception("Can't define a plan with two colinears vectors");
-
-        if(!v1.isColinear(v2)) // if n
-        {
-            _normal = Vector.crossProdcut(v1,v2);
-            _p = new Point3D(p);
-        }
-    }
-
-    public Plane(Point3D x, Point3D y, Point3D z) throws Exception{
+    public Plane(Point3D x, Point3D y, Point3D z){ // A revoir
         Vector v1 = new Vector(x);
         Vector v2 = new Vector(y);
 
@@ -52,7 +41,7 @@ public class Plane extends Geometry implements IGeometry {
             v2 = new Vector(z);
 
             if (v1.isColinear(v2)){
-                throw new Exception("Can't define a plan with two colinears vectors");
+                throw new IllegalArgumentException("Can't define a plan with two colinears vectors");
             }
 
             this._p = new Point3D(y);
@@ -61,7 +50,7 @@ public class Plane extends Geometry implements IGeometry {
             this._p = new Point3D(z);
         }
 
-        _normal = Vector.crossProdcut(v1,v2);
+        _normal = v1.crossProdcut(v2);
 
     }
 
@@ -122,11 +111,11 @@ public class Plane extends Geometry implements IGeometry {
 
         double t = _normal.dotProduct(d) / denom;
 
-        Vector v = Vector.mult(myRay.getDirection(),t);
+        Vector v = myRay.getDirection().mult(t);
 
-        Point3D p = Point3D.addVector(myRay.getOrigin(), v);
+        Point3D p = myRay.getOrigin().addVector(v);
 
-        java.util.Vector<Point3D> lst = new java.util.Vector<Point3D>();
+        List<Point3D> lst = new ArrayList<>();
 
         lst.add(p);
 

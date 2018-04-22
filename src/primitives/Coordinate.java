@@ -7,6 +7,8 @@ public class Coordinate {
 
     private double _coordinate;
 
+    private static final int ACCURACY = -20; // Accuracy for i-dyoukim
+
     // ***************** Constructors ********************** //
     /***
      * Constructor of Coordinate.
@@ -40,7 +42,7 @@ public class Coordinate {
         if(obj==null)return false;
         if(!(obj instanceof Coordinate))
             return false;
-        return Coordinate.sub(this,(Coordinate)obj)._coordinate== 0.0;
+        return sub((Coordinate)obj)._coordinate== 0.0;
     }
 
     @Override
@@ -50,57 +52,63 @@ public class Coordinate {
 
     // ***************** Operations ******************** //
 
-
-
-    public static Coordinate sub(Coordinate me, Coordinate other) {
+    /**
+     * @param other The other Coordinate
+     * @return The substraction between Coordinates
+     */
+    public Coordinate sub(Coordinate other) {
         int otherExp = getExp(other._coordinate);
-        int thisExp = getExp(me._coordinate);
+        int thisExp = getExp(this._coordinate);
 
 
 
         if (otherExp - thisExp < ACCURACY)
-            return new Coordinate(me._coordinate);
+            return new Coordinate(this._coordinate);
 
         if (thisExp - otherExp < ACCURACY)
             return new Coordinate(-other._coordinate);
 
-        double result = me._coordinate - other._coordinate;
+        double result = this._coordinate - other._coordinate;
 
         int resultExp = getExp(result);
         return resultExp < ACCURACY ? new Coordinate(0) : new Coordinate(result);
     }
 
 
-    public static Coordinate add(Coordinate me, Coordinate other) {
+    /**
+     * @param other The other Coordinate
+     * @return The addition between Coordinates
+     */
+    public  Coordinate add( Coordinate other) {
         int otherExp = getExp(other._coordinate);
-        int thisExp = getExp(me._coordinate);
+        int thisExp = getExp(this._coordinate);
 
 
         if (otherExp - thisExp < ACCURACY)
-            return new Coordinate(me._coordinate);
+            return new Coordinate(this._coordinate);
 
         if (thisExp - otherExp < ACCURACY)
             return new Coordinate(other._coordinate);
 
-        double result = me._coordinate + other._coordinate;
+        double result = this._coordinate + other._coordinate;
 
         int resultExp = getExp(result);
         return resultExp < ACCURACY ? new Coordinate(0.0) : new Coordinate(result);
     }
 
     /**
-     * @param c1 The coordinate to multiply (Operand-1).
-     * @param c2 The coordinate to multiply (Operand-2).
-     * @return The coordinate resulted by the multiplication.
+     * @param c2 The other Coordinate
+     * @return New Coordinate multed
      */
-    public static Coordinate mult(Coordinate c1, Coordinate c2){
-        return new Coordinate(c1._coordinate * c2._coordinate);
+    public  Coordinate mult(Coordinate c2){
+        return new Coordinate(this._coordinate * c2._coordinate);
     }
 
-
-    private static final int ACCURACY = -20;
-
-    public static int getExp(double num) {
+    /**
+     * @param num  The Coordinate
+     * @return Get the exp filed of a bytes number
+     */
+    private int getExp(double num) {
         return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
     }
 

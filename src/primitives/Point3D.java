@@ -5,10 +5,13 @@ package primitives;
  */
 public class Point3D extends Point2D {
 
-    Coordinate _z;
+    protected Coordinate _z;
 
 
     // ***************** Constructors ********************** //
+
+    public static final Point3D ORIGIN= new Point3D(0,0,0);
+
 
     /**
      * Constructor of a 3D point.
@@ -73,9 +76,9 @@ public class Point3D extends Point2D {
      * @return The distance between the 2 points.
      */
     public double distance(Point3D point) {
-        Coordinate newX = Coordinate.sub(this._x,point._x);
-        Coordinate newY = Coordinate.sub(this._y,point._y);
-        Coordinate newZ = Coordinate.sub(this._z,point._z);
+        Coordinate newX = _x.sub(point._x);
+        Coordinate newY = _y.sub(point._y);
+        Coordinate newZ = _z.sub(point._z);
         double result = Math.sqrt(
                 Math.pow(newX.get(), 2.0) + Math.pow(newY.get(), 2.0) + Math.pow(newZ.get(), 2.0)
         );
@@ -83,22 +86,13 @@ public class Point3D extends Point2D {
     }
 
     /**
-     * @param p The 3D point to add (Operand-1).
      * @param vec The vector to add (Operand-2).
      * @return A new point resulted by addition of a vector and another point.
      */
-    /*public static Point3D addVector(Point3D p, Vector vec){
-        Coordinate x = Coordinate.add(p._x,vec.getHead()._x);
-        Coordinate y = Coordinate.add(p._y,vec.getHead()._y);
-        Coordinate z = Coordinate.add(p._z,vec.getHead()._z);
-        return new Point3D(x,y,z);
-    }*/
-
-
-    public static Point3D addVector(Point3D p, Vector vec){
-        Coordinate x = Coordinate.add(p._x,vec.getHead()._x);
-        Coordinate y = Coordinate.add(p._y,vec.getHead()._y);
-        Coordinate z = Coordinate.add(p._z,vec.getHead()._z);
+    public Point3D addVector(Vector vec){
+        Coordinate x = this._x.add(vec.getHead()._x);
+        Coordinate y = this._y.add(vec.getHead()._y);
+        Coordinate z = this._z.add(vec.getHead()._z);
         return new Point3D(x,y,z);
     }
 
@@ -107,10 +101,9 @@ public class Point3D extends Point2D {
      * @return A new vector resulted by subtraction of a vector and another point.
      */
     public Vector subVector(Point3D p){
-        Coordinate x = Coordinate.sub(p._x,getX());
-        Coordinate y = Coordinate.sub(p._y,getY());
-        Coordinate z = Coordinate.sub(p._z,getZ());
-        Point3D p1= new Point3D(x,y,z);
-        return new Vector(p1); //Why don't return point !
+        Coordinate x = this._x.sub(p._x);
+        Coordinate y = this._y.sub(p._y);
+        Coordinate z = this._z.sub(p._z);
+        return new Vector(x,y,z); //Why don't return point !
     }
 }

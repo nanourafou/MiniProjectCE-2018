@@ -62,27 +62,13 @@ public class Triangle extends Plane {
     public Point3D getPoint3(){
         return _p3;
     }
+
+    
     @Override
     public String toString (){
         return "Triangle: \n "+"1: "+ _p1+","+"\n 2: "+ _p2+","+"\n 3: "+ _p3;
     }
 
-
-    /*private boolean testMultiplevalues(Point3D x, Point3D[] valueToVerify, java.util.Vector valueChecked){
-
-        for (int i=0;i<3;i++)
-        {
-            if(!valueChecked.contains(i)) //if the value was checked don't check
-            {
-                if(x.equals(valueToVerify[i])) //If equals
-                {
-                    valueChecked.add(i); //Add the index
-                    return true;
-                }
-            }
-        }
-        return false;
-    }*/
 
     @Override
     public boolean equals(Object obj) {
@@ -111,9 +97,9 @@ public class Triangle extends Plane {
         Vector v2 = _p2.subVector(myRay.getOrigin());
         Vector v3 = _p3.subVector(myRay.getOrigin());
 
-        Vector n1 = Vector.normalize(Vector.crossProdcut(v1,v2));
-        Vector n2 = Vector.normalize(Vector.crossProdcut(v2,v3));
-        Vector n3 = Vector.normalize(Vector.crossProdcut(v3,v1));
+        Vector n1 = (v1.crossProdcut(v2)).normalize();
+        Vector n2 = (v2.crossProdcut(v3)).normalize();
+        Vector n3 = (v3.crossProdcut(v1)).normalize();
 
         double s1 = (p.subVector(myRay.getOrigin())).dotProduct(n1);
         double s2 = (p.subVector(myRay.getOrigin())).dotProduct(n2);
