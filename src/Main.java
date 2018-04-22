@@ -1,13 +1,4 @@
 
-import elements.Camera;
-import geometries.Cylinder;
-import geometries.Plane;
-import geometries.Sphere;
-import geometries.Triangle;
-import primitives.Point3D;
-import primitives.Vector;
-import primitives.Ray;
-
 /**
  * ************************* *
  *          Targuil 1        *
