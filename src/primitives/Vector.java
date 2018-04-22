@@ -76,7 +76,7 @@ public class Vector {
     public  Vector add(Vector v2){
         Coordinate x = this.getHead()._x.add(v2._head._x);
         Coordinate y = this.getHead()._y.add(v2._head._y);
-        Coordinate z = this.getHead()._x.add(v2._head._z);
+        Coordinate z = this.getHead()._z.add(v2._head._z);
         return new Vector(x, y, z);
     }
 
@@ -143,7 +143,7 @@ public class Vector {
      */
     public boolean isColinear(Vector v){
         // If the cross product of two vector is null there are colinear.
-        return (this.crossProdcut(this).size()==0); // A revoir
+        return (this.crossProdcut(v).size()==0); // A revoir
     }
 
 

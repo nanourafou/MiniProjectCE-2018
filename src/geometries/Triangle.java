@@ -24,7 +24,7 @@ public class Triangle extends Plane {
      * @param p2 The second point of the triangle.
      * @param p3 the third point of the triangle.
      */
-    public Triangle(Point3D p1,Point3D p2,Point3D p3) throws Exception {
+    public Triangle(Point3D p1,Point3D p2,Point3D p3) {
         super(p1,p2,p3); //p1==p2==p3 still triangle  ???
         _p1 = new Point3D(p1);
         _p2 = new Point3D(p2);
@@ -63,7 +63,7 @@ public class Triangle extends Plane {
         return _p3;
     }
 
-    
+
     @Override
     public String toString (){
         return "Triangle: \n "+"1: "+ _p1+","+"\n 2: "+ _p2+","+"\n 3: "+ _p3;

@@ -84,10 +84,10 @@ public class Cylinder  extends RadialGeometry{
 
     @Override
     public Vector getNormal(Point3D p) {
-        //Vector u = Vector.sub(p,_directionRay.getDirection());
-       // Point3D proj = Vector.mult(_directionRay.getDirection(),u.dotProduct(_directionRay.getDirection()))
-        //         / (_directionRay.getDirection().dotProduct(_directionRay.getDirection())
-        return null;
+        Vector u = p.subVector(_originPoint);
+        double proj = u.dotProduct(_directionRay.getDirection());
+        Point3D p1 = _originPoint.addVector(_directionRay.getDirection().mult(proj));
+        return (p.subVector(p1)).normalize();
     }
 
     @Override

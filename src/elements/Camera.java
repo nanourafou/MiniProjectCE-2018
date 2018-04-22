@@ -52,10 +52,10 @@ public class Camera {
      * @param upVector The up vector
      * @throws Exception If they are not orthogonals
      */
-    public Camera(Point3D centerPosition, Vector towardVector, Vector upVector) throws Exception{
+    public Camera(Point3D centerPosition, Vector towardVector, Vector upVector) {
 
         if(towardVector.isColinear(upVector))
-            throw new Exception("Not Orthogonals vectors");
+            throw new IllegalArgumentException("Not Orthogonals vectors");
 
         _vToward = towardVector.normalize();
         _vUp = upVector.normalize();
