@@ -22,14 +22,14 @@ public class CameraTest  {
     Camera c2;
 
     //Init Camera Ctor
-    private void initCamera() throws Exception{
+    private void initCamera(){
         c1=new Camera(p1,new Vector(0,-1,0),new Vector(0,0,-1));
         c2=new Camera(p2,new Vector(1,1,1),new Vector(-1,2,-1));
     }
 
 
     @Test
-    public void createCameraTest() throws Exception{
+    public void createCameraTest(){
         assertThrows(Exception.class,()->{Camera z = new Camera(new Point3D(2,4,5), new Vector(2,5,4), new Vector(4,10,8));}); // Colinear Vector test
 
         Camera c = new Camera(new Point3D(2,4,5), new Vector(2,5,4), new Vector(4,5,8));
@@ -39,7 +39,7 @@ public class CameraTest  {
 
 
     @Test
-    public void constructRayThoughPixelTest() throws Exception {
+    public void constructRayThoughPixelTest(){
         initCamera();
         assertEquals(c1.constructRayThoughPixel(3, 3, 3, 3, 100, 150, 150),r11);
         assertEquals(c1.constructRayThoughPixel(3, 3, 1, 1, 100, 150, 150),r12);
@@ -47,4 +47,5 @@ public class CameraTest  {
         assertEquals(c1.constructRayThoughPixel(3, 3, 3, 1, 100, 150, 150),r14);
         assertEquals(c1.constructRayThoughPixel(3, 3, 2, 2, 100, 150, 150),r15);
     }
+
 }
