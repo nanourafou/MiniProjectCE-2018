@@ -152,6 +152,8 @@ public class Vector {
      */
     public Vector normalize(){
         double size = size();
+        if(size==0)
+            throw new ArithmeticException("Can't divide by zero");
         double x = getHead().getX().get() / size;
         double y = getHead().getY().get() / size;
         double z = getHead().getZ().get() / size;
