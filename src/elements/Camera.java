@@ -33,15 +33,20 @@ public class Camera {
         //double  x = (i-(Nx/2))*Rx-Rx/2;
         //double  y = (j-(Ny/2))*Ry-Ry/2;
 
-        double  x = (i-(Nx+1/2))*Rx;
-        double  y = (j-(Ny+1/2))*Ry;
+        double  x = (i-((Nx+1)/2))*Rx;
+        double  y = (j-((Ny+1)/2))*Ry;
 
-        Point3D p = pc.addVector((_vRight.mult(x)).sub(_vUp.mult(y)));
+        Vector v1 = (_vRight.mult(x));
+        Vector v2 = _vUp.mult(y);
+        Vector v3 = v1.sub(v2);
+        //Point3D p = pc.addVector((_vRight.mult(x)).sub(_vUp.mult(y)));
+
+        Point3D p = pc.addVector(v3);
 
         Vector v = p.subVector(_p0);
 
 
-        return new Ray(_p0,v);
+        return new Ray(_p0,v.normalize());
     }
 
 
