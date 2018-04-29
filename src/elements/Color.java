@@ -27,22 +27,44 @@ public class Color {
      * @param g Green
      * @param b Blue
      */
-    public Color(float r, float g, float b){
-        _color = new java.awt.Color(r,g,b);
+    public Color(double r, double g, double b){
+        if(r<0)
+            r=0;
+        if(r>255)
+            r=255;
+        if(g<0)
+            g=0;
+        if(g>255)
+            g=255;
+        if(b<0)
+            b=0;
+        if(b>255)
+            b=255;
+
+        _color = new java.awt.Color((int)r,(int)g,(int)b);
     }
 
     /**
      * @param c Color to add to our color.
      */
-    public void add(java.awt.Color c){
-        int r = _color.getRed() +c.getRed();
+    public void add(Color... colors){
+       /* int r = _color.getRed() +c.getRed();
+        if(r<0)
+            r=0;
+        if(r>255)
+            r=255;
         int g = _color.getGreen() +c.getGreen();
+        if(g<0)
+            g=0;
+        if(g>255)
+            g=255;
         int b = _color.getBlue() +c.getBlue();
+        if(b<0)
+            b=0;
+        if(b>255)
+            b=255;
 
-        if(r>255 || g>255 || b>255 ||r<0 || g<0 || b<0 )
-            throw new IllegalArgumentException();
-
-        _color = new java.awt.Color(r,g,b);
+        _color = new java.awt.Color((int)r,(int)g,(int)b);*/
     }
 
     /**
@@ -53,10 +75,20 @@ public class Color {
         double g = _color.getGreen() *s;
         double b = _color.getBlue() *s;
 
-        if(r>255 || g>255 || b>255 ||r<0 || g<0 || b<0 )
-            throw new IllegalArgumentException();
+        if(r<0)
+            r=0;
+        if(r>255)
+            r=255;
+        if(g<0)
+            g=0;
+        if(g>255)
+            g=255;
+        if(b<0)
+            b=0;
+        if(b>255)
+            b=255;
 
-        _color = new java.awt.Color((float) r,(float)g,(float)b);
+        _color = new java.awt.Color((int) r,(int)g,(int)b);
     }
 
     /**
@@ -67,10 +99,20 @@ public class Color {
         double red = _color.getRed() -r;
         double g = _color.getGreen() -r;
         double b = _color.getBlue() -r;
-        if(r>255 || g>255 || b>255 ||r<0 || g<0 || b<0 )
-            throw new IllegalArgumentException();
+        if(red<0)
+            r=0;
+        if(red>255)
+            r=255;
+        if(g<0)
+            g=0;
+        if(g>255)
+            g=255;
+        if(b<0)
+            b=0;
+        if(b>255)
+            b=255;
 
-        _color = new java.awt.Color((float) red,(float)g,(float)b);
+        _color = new java.awt.Color((int)red,(int)g,(int)b);
 
 
     }

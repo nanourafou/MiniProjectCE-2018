@@ -13,7 +13,7 @@ public class Renderer {
     private ImageWriter _imgWrter;
 
 
-    public void printImage(int interval){
+    public void printGrid(int interval){
         int height = _imgWrter.getHeight();
         int width = _imgWrter.getWidth();
 
@@ -25,9 +25,6 @@ public class Renderer {
 
             }
         }
-
-        _imgWrter.writeToimage();
-
     }
 
     /**
@@ -71,7 +68,6 @@ public class Renderer {
 
         }
 
-        _imgWrter.writeToimage();
     }
 
     /**
@@ -100,6 +96,10 @@ public class Renderer {
         }
         return minDistancePoint;
     }
-
-
+    /**
+     * Write to image function
+     */
+    public void writeToImage(){
+        _imgWrter.writeToimage();
+    }
 }

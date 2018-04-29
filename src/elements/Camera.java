@@ -30,8 +30,6 @@ public class Camera {
         double Rx = width/Nx;
         double Ry = height/Ny;
 
-        //double  x = (i-(Nx/2))*Rx-Rx/2;
-        //double  y = (j-(Ny/2))*Ry-Ry/2;
 
         double  x = (i-((Nx+1)/2))*Rx;
         double  y = (j-((Ny+1)/2))*Ry;
@@ -39,7 +37,6 @@ public class Camera {
         Vector v1 = (_vRight.mult(x));
         Vector v2 = _vUp.mult(y);
         Vector v3 = v1.sub(v2);
-        //Point3D p = pc.addVector((_vRight.mult(x)).sub(_vUp.mult(y)));
 
         Point3D p = pc.addVector(v3);
 
@@ -66,6 +63,7 @@ public class Camera {
         _vUp = upVector.normalize();
         _vRight = towardVector.crossProdcut(upVector);
 
+        //_vRight = new Vector(1,0,0);
         _p0 = new Point3D(centerPosition);
 
     }

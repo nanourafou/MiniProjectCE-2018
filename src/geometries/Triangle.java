@@ -85,9 +85,12 @@ public class Triangle extends Plane {
     }
 
 
-    @Override
+
     public List<Point3D> findIntersections(Ray myRay){
         List<Point3D> lst = (super.findIntersections(myRay)); //Get the intersection of the father
+        if(lst==null)
+            return null;
+
         Point3D p = lst.get(0);
 
         if(p==null)
@@ -113,8 +116,8 @@ public class Triangle extends Plane {
             return null;
 
 
-
-
     }
+
+
 
 }

@@ -49,6 +49,18 @@ public class Scene {
     }
 
     /**
+     * Default constructor for the scene
+     */
+    public Scene(String name){
+        this._name=name;
+        this._background = null;
+        this._camera = null;
+        this._cameraDistance = 0;
+        this._ambientLight = null;
+        this._geometriesManager = new Geometries();
+    }
+
+    /**
      * Constructor for the Scene
      * @param name The name of the scene
      * @param background The background of the scene

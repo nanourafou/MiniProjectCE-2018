@@ -21,9 +21,6 @@ public class Geometries extends Geometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        for (Geometry object: geometriesArrayList) {
-            return object.getNormal(p); //Maybe not working ??
-        }
         return null;
     }
 
@@ -32,7 +29,9 @@ public class Geometries extends Geometry {
         List<Point3D> lst = new ArrayList<>();
 
         for (Geometry object: geometriesArrayList) {
-            List<Point3D> l1 = new ArrayList<>();
+            List<Point3D> l1 = object.findIntersections(myRay);
+            if(l1==null)
+                continue;
             for (Point3D p: l1){
                 lst.add(p);
             }
