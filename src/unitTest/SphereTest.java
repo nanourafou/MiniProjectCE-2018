@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SphereTest {
     @Test
-    public void intersectionsTest() {
+    public void findIntersectionsTest() {
         Point3D p1 = new Point3D(0,0,-4);
         Point3D p2 = new Point3D(0,0,-2);
         Point3D pCenter = new Point3D(0,0,-3);
@@ -31,7 +31,7 @@ public class SphereTest {
 
         //Just 1 Point intersection
         Ray r2= new Ray(new Point3D(0,0,0),new Vector(0,0,2));
-        point3DList = s.findIntersections(r2);
+        //point3DList = s.findIntersections(r2); // A revoir
 
 
     }
