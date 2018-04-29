@@ -29,9 +29,11 @@ public class Geometries extends Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray myRay) {
+        List<Point3D> lst = new ArrayList<>();
+
         for (Geometry object: geometriesArrayList) {
-            return object.findIntersections(myRay); //Maybe not working ??
+            lst.addAll(object.findIntersections(myRay));
         }
-        return null;
+        return lst;
     }
 }

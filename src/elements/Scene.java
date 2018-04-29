@@ -93,6 +93,10 @@ public class Scene {
         return _cameraDistance;
     }
 
+    public Geometries getGeometriesManager() {
+        return _geometriesManager;
+    }
+
     /**
      * @return Getters for the Ambient Light
      */
