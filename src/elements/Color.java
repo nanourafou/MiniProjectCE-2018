@@ -20,6 +20,15 @@ public class Color {
     public Color(Color c){
         _color = new java.awt.Color(c._color.getRGB());
     }
+
+    /**
+     * Constructor for a color
+     * @param c
+     */
+    public Color(float r, float g, float b){
+        _color = new java.awt.Color(r,g,b);
+    }
+
     /**
      * @param c Color to add to our color.
      */
@@ -48,8 +57,19 @@ public class Color {
         _color = new java.awt.Color((float) r,(float)g,(float)b);
     }
 
-    //???
+    /**
+     * Reduce the color By a double
+     * @param r The double operand
+     */
     public void reduce(double r){
+        double red = _color.getRed() -r;
+        double g = _color.getGreen() -r;
+        double b = _color.getBlue() -r;
+        if(r>255 || g>255 || b>255 ||r<0 || g<0 || b<0 )
+            throw new IllegalArgumentException();
+
+        _color = new java.awt.Color((float) red,(float)g,(float)b);
+
 
     }
 

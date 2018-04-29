@@ -31,9 +31,11 @@ public class SphereTest {
 
         //Just 1 Point intersection
         Ray r2= new Ray(new Point3D(0,0,0),new Vector(0,0,2));
-        //point3DList = s.findIntersections(r2); // A revoir
+        point3DList = s.findIntersections(r2); // A revoir
+
 
 
     }
+
 
 }

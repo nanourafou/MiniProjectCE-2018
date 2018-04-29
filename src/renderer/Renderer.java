@@ -12,8 +12,19 @@ public class Renderer {
     private Scene _scene;
     private ImageWriter _imgWrter;
 
-    //???
-    public void printImage(){
+
+    public void printImage(int interval){
+        int height = _imgWrter.getHeight();
+        int width = _imgWrter.getWidth();
+
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+
+                if (i % interval == 0 || j % interval == 0)
+                    _imgWrter.writePixel(j, i, 255, 255, 255);
+
+            }
+        }
 
     }
 
@@ -37,16 +48,18 @@ public class Renderer {
 
     }
 
-    //???
+    /**
+     * Generate a Image
+     */
     private void renderImage(){
-        for (int i=0;true;i++) //STOP ??
+        for (int i=0;i<_imgWrter.getHeight();i++)
         {
-            for (int j=0;true;j++) //STOP
+            for (int j=0;j<_imgWrter.getWidth();j++)
             {
                 Ray r = _scene.getCamera().constructRayThoughPixel(_imgWrter.getNx(),_imgWrter.getNy(),i,j,_scene.getCameraDistance(),_imgWrter.getWidth(),_imgWrter.getHeight());
                 List<Point3D> lstIntersections = _scene.getGeometriesManager().findIntersections(r);
 
-                if(lstIntersections.size()==0)  //j,i or i,j ???
+                if(lstIntersections.size()==0)
                     _imgWrter.writePixel(j,i,_scene.getBackground().getColor());
                 else {
                     Point3D closePoint = getClosestPoint(lstIntersections);
