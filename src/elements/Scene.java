@@ -124,7 +124,7 @@ public class Scene {
     /**
      * @param _camera Setter of the Camera
      */
-    public void setCamera(Camera _camera)
+    public void setCamera(Camera _camera){
         this._camera = _camera;
     }
 
