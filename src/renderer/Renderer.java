@@ -26,6 +26,8 @@ public class Renderer {
             }
         }
 
+        _imgWrter.writeToimage();
+
     }
 
     /**
@@ -51,7 +53,7 @@ public class Renderer {
     /**
      * Generate a Image
      */
-    private void renderImage(){
+    public void renderImage(){
         for (int i=0;i<_imgWrter.getHeight();i++)
         {
             for (int j=0;j<_imgWrter.getWidth();j++)
@@ -68,6 +70,8 @@ public class Renderer {
             }
 
         }
+
+        _imgWrter.writeToimage();
     }
 
     /**

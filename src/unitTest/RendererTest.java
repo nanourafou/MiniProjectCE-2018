@@ -16,7 +16,7 @@ public class RendererTest {
 
     @Test
     public void RenderTest(){
-        Scene s = new Scene("scene",
+        Scene s = new Scene("sc1",
                 new Color(0,0,0),
                 new Camera(new Point3D(0,0,0), new Vector(0,0,-1),new Vector(0,-1,0)),
                 new AmbientLight(new Color(1,1,1),1),

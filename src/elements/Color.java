@@ -23,7 +23,9 @@ public class Color {
 
     /**
      * Constructor for a color
-     * @param c
+     * @param r Red
+     * @param g Green
+     * @param b Blue
      */
     public Color(float r, float g, float b){
         _color = new java.awt.Color(r,g,b);

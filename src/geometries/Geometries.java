@@ -32,7 +32,11 @@ public class Geometries extends Geometry {
         List<Point3D> lst = new ArrayList<>();
 
         for (Geometry object: geometriesArrayList) {
-            lst.addAll(object.findIntersections(myRay));
+            List<Point3D> l1 = new ArrayList<>();
+            for (Point3D p: l1){
+                lst.add(p);
+            }
+
         }
         return lst;
     }
