@@ -28,6 +28,12 @@ public class Vector {
     public Vector(Coordinate x, Coordinate y, Coordinate z){
         _head = new Point3D(x,y,z);
     }
+    public Vector(Point3D p1, Point3D p2){
+
+        this(p2.getX().get() - p1.getX().get(),
+                p2.getY().get() - p1.getY().get(),
+                p2.getZ().get() - p1.getZ().get());
+    }
 
     /***
      * Construct a vector with a 3D point.

@@ -6,26 +6,23 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaneTest {
-
+    Plane p1= new Plane(new Vector(0,1,0),new Point3D(0,0,0));
+    Plane p2= new Plane(new Vector(0,0,1),new Point3D(0,0,0));
+    Ray r1= new Ray(new Point3D(0,-1,0),new Vector(0,1,0));
+    Ray r2= new Ray(new Point3D(0,1,0),new Vector(0,1,0));
+    Ray r3= new Ray(new Point3D(0,0,0),new Vector(1,0,0));
     @Test
     public void findIntersectionsTest(){
-        //Just 1 intersection Point
-        Ray r = new Ray(new Point3D(0,0,0),new Vector(-6,-2,0));
-        Plane pl = new Plane(new Vector(2,3,4),new Point3D(0,0,-3)); //2x+3x+4x+18
-        List<Point3D> x = pl.findIntersections(r);
+        assertEquals(p1.findIntersections(r1).size(),1);
+        //assertEquals(p1.findIntersections(r1).get(0),new Point3D(0,0,0));
+        //assertEquals(p1.findIntersections(r2).size(),0);
 
-        //0 intersection point
-        Ray r1 = new Ray(new Point3D(0,0,0),new Vector(-1,-1,0));
-        x = pl.findIntersections(r);
+        //assertEquals(p2.findIntersections(r3).size(),0);
 
-        //Inclus dans le plans
-
-        //Colineaire au plan
-
-        //Secante au plan
 
     }
+
 }
