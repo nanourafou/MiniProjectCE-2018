@@ -23,8 +23,8 @@ public class RendererTest {
                 new AmbientLight(new Color(255,255,255),1),
                 1000);
 
-        s.addGeometry(new Sphere(new Point3D(0,0,-400),200));
-        s.addGeometry(new Triangle(new Point3D(0,-100,-200), new Point3D(100,100,-200),new Point3D(-100,100,-200)));
+        s.addGeometry(new Sphere(new Point3D(0,0,-400),200, new Color(1,1,1)));
+        s.addGeometry(new Triangle(new Point3D(0,-100,-200), new Point3D(100,100,-200),new Point3D(-100,100,-200), new Color(1,1,1)));
 
         ImageWriter imgWrt = new ImageWriter(s.getName(),500,500,3,3);
 
@@ -44,23 +44,23 @@ public class RendererTest {
         scene.setCameraDistance(100);
         scene.setBackground(new Color(0, 0, 0));
         Geometries geometries = scene.getGeometriesManager();
-        geometries.addGeometry(new Sphere( new Point3D(0, 0, 150),50));
+        geometries.addGeometry(new Sphere( new Point3D(0, 0, 150),50,  new Color(45,67,125)));
 
         geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
                 new Point3D(  0, 100, 149),
-                new Point3D( 100, 100, 149)));
+                new Point3D( 100, 100, 149), new Color(1,1,1)));
 
         geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
                 new Point3D(  0, -100, 149),
-                new Point3D( 100,-100, 149)));
+                new Point3D( 100,-100, 149), new Color(2,3,4)));
 
         geometries.addGeometry(new Triangle(new Point3D(-100, 0, 149),
                 new Point3D(  0, 100, 149),
-                new Point3D(-100, 100, 149)));
+                new Point3D(-100, 100, 149), new Color(2,100,150)));
 
         geometries.addGeometry(new Triangle(new Point3D(-100, 0, 149),
                 new Point3D(  0,  -100, 149),
-                new Point3D(-100, -100, 149)));
+                new Point3D(-100, -100, 149), new Color(200,33,255)));
 
         ImageWriter imageWriter = new ImageWriter("test1", 500, 500, 500, 500);
         Renderer render = new Renderer(scene,imageWriter);

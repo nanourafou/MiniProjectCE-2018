@@ -4,8 +4,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Geometries extends Geometry {
 
@@ -25,10 +24,10 @@ public class Geometries extends Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray myRay) {
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
         List<Point3D> lst = new ArrayList<>();
 
-        for (Geometry object: geometriesArrayList) {
+        /*for (Geometry object: geometriesArrayList) {
             List<Point3D> l1 = object.findIntersections(myRay);
             if(l1==null)
                 continue;
@@ -38,5 +37,25 @@ public class Geometries extends Geometry {
 
         }
         return lst;
+        */
+
+        Map<Geometry, List<Point3D>> map = new HashMap<>();
+
+        for (Geometry object: geometriesArrayList) {
+            Map<Geometry, List<Point3D>> m1 = object.findIntersections(myRay);
+
+            if(m1==null)
+                continue;
+
+            for (Map.Entry<Geometry, List<Point3D>> entry: m1.entrySet()){
+                Geometry key = entry.getKey();
+                List<Point3D> lst1 = entry.getValue();
+                map.put(key,lst1);
+            }
+
+            }
+
+
+            return map;
     }
 }

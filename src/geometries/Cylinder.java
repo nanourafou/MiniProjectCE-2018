@@ -1,10 +1,12 @@
 package geometries;
 
+import elements.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The class describing a Cylinder in space.
@@ -23,8 +25,8 @@ public class Cylinder  extends RadialGeometry{
      * @param origin Original position for the cylinder.
      * @param height The height of the cylinder.
      */
-    public Cylinder(Ray directionRay, double radius, Point3D origin, double height){
-        super(radius);
+    public Cylinder(Ray directionRay, double radius, Point3D origin, double height, Color clr){
+        super(radius, clr);
         this._directionRay = new Ray(directionRay);
         this._height = height;
         this._originPoint = new Point3D(origin);
@@ -91,7 +93,7 @@ public class Cylinder  extends RadialGeometry{
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray myRay){ return null;}
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay){ return null;}
 
 
 }

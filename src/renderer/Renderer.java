@@ -2,10 +2,13 @@ package renderer;
 
 import elements.Color;
 import elements.Scene;
+import geometries.Geometry;
 import primitives.Point3D;
 import primitives.Ray;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Renderer {
 
@@ -56,13 +59,16 @@ public class Renderer {
             for (int j=0;j<_imgWrter.getWidth();j++)
             {
                 Ray r = _scene.getCamera().constructRayThoughPixel(_imgWrter.getNx(),_imgWrter.getNy(),i,j,_scene.getCameraDistance(),_imgWrter.getWidth(),_imgWrter.getHeight());
-                List<Point3D> lstIntersections = _scene.getGeometriesManager().findIntersections(r);
+                Map<Geometry, List<Point3D>> lstIntersections = _scene.getGeometriesManager().findIntersections(r);
 
                 if(lstIntersections.size()==0)
                     _imgWrter.writePixel(j,i,_scene.getBackground().getColor());
                 else {
-                    Point3D closePoint = getClosestPoint(lstIntersections);
-                    _imgWrter.writePixel(j,i,calcColor(closePoint).getColor());
+                    Map<Geometry, Point3D> closePoint = getClosestPoint(lstIntersections);
+                    for (Map.Entry<Geometry, Point3D> entry: closePoint.entrySet()) {
+                        _imgWrter.writePixel(j,i,calcColor(entry.getKey(), entry.getValue()).getColor());
+                    }
+
                 }
             }
 
@@ -74,27 +80,43 @@ public class Renderer {
      * @param p The point to analuys
      * @return The light with the good intensity
      */
-    private Color calcColor(Point3D p){ //Why need a point ???
-        return _scene.getAmbientLight().getIntensity();
+    private Color calcColor(Geometry g, Point3D p){ //Why need a point ???
+
+        Color c = _scene.getAmbientLight().getIntensity();
+        c.add(g.getEmission());
+        return c;
     }
 
     /**
-     * Get the closest point of the view
-     * @param points The list of all intersections points
-     * @return The closest point of the view
+     * Get the closest point
+     * @param mPoints Map<Geometry, List<Point3D>> of intersections
+     * @return Map<Geometry, Point3D>
      */
-    private Point3D getClosestPoint(List<Point3D> points){
+    private Map<Geometry, Point3D> getClosestPoint(Map<Geometry, List<Point3D>>  mPoints){
         double distance = Double.MAX_VALUE;
         Point3D p0 = _scene.getCamera().getP0();
         Point3D minDistancePoint=null;
+        Geometry key=null;
 
-        for (Point3D pt: points){
-            if(p0.distance(pt)<distance){
-                minDistancePoint = new Point3D(pt);
-                distance = p0.distance(pt);
+
+        for(Map.Entry<Geometry, List<Point3D>> entry : mPoints.entrySet() ){
+            key = entry.getKey();
+            List<Point3D> points = entry.getValue();
+
+            for (Point3D pt: points){
+                if(p0.distance(pt)<distance){
+                    minDistancePoint = new Point3D(pt);
+                    distance = p0.distance(pt);
+                }
             }
+
         }
-        return minDistancePoint;
+        if(key==null)
+            return null;
+        Map<Geometry, Point3D> m1 = new HashMap<>();
+        m1.put(key,minDistancePoint);
+
+        return m1;
     }
     /**
      * Write to image function

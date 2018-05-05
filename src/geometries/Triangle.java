@@ -1,10 +1,13 @@
 package geometries;
 
+import elements.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The class describing a Triangle in space.
@@ -24,8 +27,8 @@ public class Triangle extends Plane {
      * @param p2 The second point of the triangle.
      * @param p3 the third point of the triangle.
      */
-    public Triangle(Point3D p1,Point3D p2,Point3D p3) {
-        super(p1,p2,p3); //p1==p2==p3 still triangle  ???
+    public Triangle(Point3D p1,Point3D p2,Point3D p3, Color clr) {
+        super(p1,p2,p3,clr); //p1==p2==p3 still triangle  ???
         _p1 = new Point3D(p1);
         _p2 = new Point3D(p2);
         _p3 = new Point3D(p3);
@@ -86,8 +89,8 @@ public class Triangle extends Plane {
 
 
 
-    public List<Point3D> findIntersections(Ray myRay){
-        List<Point3D> lst = (super.findIntersections(myRay)); //Get the intersection of the father
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay){
+        List<Point3D> lst = (super.findIntersections(myRay)).get(this); //Get the intersection of the father
         if(lst==null)
             return null;
 
@@ -108,10 +111,14 @@ public class Triangle extends Plane {
         double s2 = (p.subVector(myRay.getOrigin())).dotProduct(n2);
         double s3 = (p.subVector(myRay.getOrigin())).dotProduct(n3);
 
+        Map<Geometry, List<Point3D>> m = new HashMap<>();
+
         if(s1==0 || s2==0 || s3==0)
             return null;
-        if(Tools.sameSign(new double[] {s1,s2,s3}))
-            return lst; //return p
+        if(Tools.sameSign(new double[] {s1,s2,s3})) {
+            m.put(this,lst);
+            return m;
+        }
         else
             return null;
 

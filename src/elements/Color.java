@@ -48,13 +48,15 @@ public class Color {
      * @param colors Color to add to our color.
      */
     public void add(Color... colors){
-        int r=0;
-        int g=0;
-        int b=0;
+        int r= _color.getRed();
+        int g= _color.getGreen();
+        int b= _color.getBlue();
         for (Color c: colors ) {
-             r += _color.getRed() + c._color.getRed();
-             g += _color.getGreen() + c._color.getGreen();
-             b += _color.getBlue() + c._color.getBlue();
+            if(c==null)
+                continue;
+             r += c._color.getRed();
+             g += c._color.getGreen();
+             b += c._color.getBlue();
              }
         if (b < 0)
             b = 0;
@@ -68,7 +70,7 @@ public class Color {
             r = 0;
         if (r > 255)
             r = 255;
-        _color = new java.awt.Color((int) r, (int) g, (int) b);
+        _color =  new java.awt.Color((int) r, (int) g, (int) b);
     }
 
     /**

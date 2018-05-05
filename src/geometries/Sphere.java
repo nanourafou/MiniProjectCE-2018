@@ -1,11 +1,11 @@
 package geometries;
 
+import elements.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The class describing a Sphere in space.
@@ -21,8 +21,8 @@ public class Sphere extends RadialGeometry {
     /***
      * Constructor of the class.
      */
-    public Sphere(Point3D center, double radius){
-        super(radius);
+    public Sphere(Point3D center, double radius, Color clr){
+        super(radius, clr);
         _center=new Point3D(center);
     }
 
@@ -68,7 +68,7 @@ public class Sphere extends RadialGeometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray myRay) {
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
         Vector l = _center.subVector(myRay.getOrigin());
         double tm = l.dotProduct(myRay.getDirection());
         double d = Math.sqrt(Math.pow(l.size(), 2) - Math.pow(tm, 2));
@@ -94,7 +94,9 @@ public class Sphere extends RadialGeometry {
             Point3D p2 = myRay.getOrigin().addVector(v2);
             lst.add(p2);
         }
-        return lst;
+        Map<Geometry, List<Point3D>> m = new HashMap<>();
+        m.put(this,lst);
+        return m;
     }
 
 }

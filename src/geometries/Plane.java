@@ -1,11 +1,11 @@
 package geometries;
 
+import elements.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The class describing a Plane in space.
@@ -22,7 +22,8 @@ public class Plane extends Geometry {
      * @param normalVector The vector director (vector normal deduced).
      * @param point The point who will be on the plane.
      */
-    public Plane(Vector normalVector, Point3D point){
+    public Plane(Vector normalVector, Point3D point, Color clr){
+        super(clr);
         this._normal = new Vector(normalVector);
         this._p = new Point3D(point);
     }
@@ -33,7 +34,8 @@ public class Plane extends Geometry {
      * @param y The Coordinate y
      * @param z The Coordinate y
      */
-    public Plane(Point3D x, Point3D y, Point3D z){ // A revoir
+    public Plane(Point3D x, Point3D y, Point3D z, Color clr){ // A revoir
+        super(clr);
         Vector v1 = new Vector(x);
         Vector v2 = new Vector(y);
 
@@ -58,6 +60,7 @@ public class Plane extends Geometry {
      * Copy Constructor
      */
     public Plane(Plane plane){
+        super(plane);
         this._normal = new Vector(plane._normal);
         this._p = new Point3D(plane._p);
     }
@@ -100,7 +103,10 @@ public class Plane extends Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray myRay) {
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
+
+        Map<Geometry, List<Point3D>> m = new HashMap<>();
+
 
         double denom = _normal.dotProduct(myRay.getDirection());
 
@@ -119,7 +125,8 @@ public class Plane extends Geometry {
 
         lst.add(p);
 
-        return lst;
+        m.put(this,lst);
+        return m;
 
     }
 }
