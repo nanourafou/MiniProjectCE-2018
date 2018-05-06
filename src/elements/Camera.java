@@ -68,18 +68,30 @@ public class Camera {
 
     }
 
+    /**
+     * @return Origin Point
+     */
     public Point3D getP0() {
         return _p0;
     }
 
+    /**
+     * @return Vector Right
+     */
     public Vector getVRight() {
         return _vRight;
     }
 
+    /**
+     * @return Vector Toward
+     */
     public Vector getVToward() {
         return _vToward;
     }
 
+    /**
+     * @return Vector Up
+     */
     public Vector getVUp() {
         return _vUp;
     }

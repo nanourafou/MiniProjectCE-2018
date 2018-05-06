@@ -14,8 +14,17 @@ import java.util.Map;
 public abstract class Geometry {
 
     // ***************** Constructors ********************** //
-    public Geometry(Color _emission){}
 
+    /**
+     * Constructor
+     * @param emission
+     */
+    public Geometry(Color emission){ this._emission= emission;}
+
+    /**
+     * Copy Costructors
+     * @param geoObj
+     */
     public Geometry(Geometry geoObj){ this._emission= geoObj._emission;}
 
     public Geometry(){}
@@ -31,8 +40,16 @@ public abstract class Geometry {
      */
     public abstract Vector getNormal(Point3D p);
 
+    /**
+     * Find the intersection between ray and the geometry
+     * @param myRay The ray
+     * @return A Map with the geometry and a list of points
+     */
     public abstract Map<Geometry, List<Point3D>> findIntersections(Ray myRay);
 
+    /**
+     * @return Color Emission ofn the geometry
+     */
     public Color getEmission(){ return _emission;}
 }
 

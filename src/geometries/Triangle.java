@@ -88,6 +88,11 @@ public class Triangle extends Plane {
     }
 
 
+    /**
+     * FindIntesection function NOT OVERRINDING the parent method
+     * @param myRay The ray for the intersection
+     * @return Map<Geometry, List<Point3D>>
+     */
 
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay){
         List<Point3D> lst = (super.findIntersections(myRay)).get(this); //Get the intersection of the father
@@ -121,7 +126,6 @@ public class Triangle extends Plane {
         }
         else
             return null;
-
 
     }
 

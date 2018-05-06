@@ -8,36 +8,40 @@ import java.util.*;
 
 public class Geometries extends Geometry {
 
+    /**
+     * Array list of all geometries
+     */
     private ArrayList<Geometry> geometriesArrayList = new ArrayList<>();
 
+    /**
+     * @param g Add a geometry to the composite
+     */
     public void addGeometry(Geometry g){
         geometriesArrayList.add(g);
     }
 
+    /**
+     * @param g Remove the geometry from the composite
+     */
     public void removeGeometry(Geometry g){
         geometriesArrayList.remove(g);
     }
 
+    /**
+     * @return null
+     */
     @Override
     public Vector getNormal(Point3D p) {
         return null;
     }
 
+    /**
+     * @param myRay Find intersection of all composite
+     * @return
+     */
     @Override
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
         List<Point3D> lst = new ArrayList<>();
-
-        /*for (Geometry object: geometriesArrayList) {
-            List<Point3D> l1 = object.findIntersections(myRay);
-            if(l1==null)
-                continue;
-            for (Point3D p: l1){
-                lst.add(p);
-            }
-
-        }
-        return lst;
-        */
 
         Map<Geometry, List<Point3D>> map = new HashMap<>();
 

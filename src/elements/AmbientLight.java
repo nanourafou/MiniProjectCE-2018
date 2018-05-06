@@ -6,11 +6,19 @@ public class AmbientLight {
     private double _ka;
 
 
+    /**
+     * @param c Color
+     * @param ka The intensity of the color
+     */
     public AmbientLight(Color c, double ka){
         this._color = c;
         this._ka = ka;
     }
 
+    /**
+     * @param c Color (From java)
+     * @param ka The intensity of the color
+     */
     public AmbientLight(java.awt.Color c, double ka){
         this._color = new Color(c);
         this._ka = ka;
