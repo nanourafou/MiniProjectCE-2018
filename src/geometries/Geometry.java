@@ -1,6 +1,7 @@
 package geometries;
 
 import elements.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -13,24 +14,31 @@ import java.util.Map;
  */
 public abstract class Geometry {
 
+    private Color _emission;
+
+    private Material _material;
     // ***************** Constructors ********************** //
 
     /**
      * Constructor
      * @param emission
      */
-    public Geometry(Color emission){ this._emission= emission;}
+    public Geometry(Color emission, Material m){
+        this._emission= new Color(emission);
+        this._material = m;
+    }
 
     /**
      * Copy Costructors
      * @param geoObj
      */
-    public Geometry(Geometry geoObj){ this._emission= geoObj._emission;}
+    public Geometry(Geometry geoObj){
+        this._emission = new Color(geoObj._emission);
+        this._material = new Material(geoObj._material);
+    }
 
     public Geometry(){}
 
-
-    private Color _emission;
 
     // ***************** Operations ******************** //
 
@@ -51,5 +59,12 @@ public abstract class Geometry {
      * @return Color Emission ofn the geometry
      */
     public Color getEmission(){ return _emission;}
+
+    /**
+     * @return The Material
+     */
+    public Material getMterial() {
+        return _material;
+    }
 }
 

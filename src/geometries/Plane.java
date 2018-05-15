@@ -1,6 +1,7 @@
 package geometries;
 
 import elements.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -22,8 +23,8 @@ public class Plane extends Geometry {
      * @param normalVector The vector director (vector normal deduced).
      * @param point The point who will be on the plane.
      */
-    public Plane(Vector normalVector, Point3D point, Color clr){
-        super(clr);
+    public Plane(Vector normalVector, Point3D point, Color clr, Material m){
+        super(clr, m);
         this._normal = new Vector(normalVector);
         this._p = new Point3D(point);
     }
@@ -34,8 +35,8 @@ public class Plane extends Geometry {
      * @param y The Coordinate y
      * @param z The Coordinate y
      */
-    public Plane(Point3D x, Point3D y, Point3D z, Color clr){ // A revoir
-        super(clr);
+    public Plane(Point3D x, Point3D y, Point3D z, Color clr, Material m){ // A revoir
+        super(clr, m);
         Vector v1 = new Vector(x);
         Vector v2 = new Vector(y);
 

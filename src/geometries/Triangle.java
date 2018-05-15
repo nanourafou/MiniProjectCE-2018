@@ -1,6 +1,7 @@
 package geometries;
 
 import elements.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -27,8 +28,8 @@ public class Triangle extends Plane {
      * @param p2 The second point of the triangle.
      * @param p3 the third point of the triangle.
      */
-    public Triangle(Point3D p1,Point3D p2,Point3D p3, Color clr) {
-        super(p1,p2,p3,clr); //p1==p2==p3 still triangle  ???
+    public Triangle(Point3D p1,Point3D p2,Point3D p3, Color clr, Material m) {
+        super(p1,p2,p3,clr,m); //p1==p2==p3 still triangle  ???
         _p1 = new Point3D(p1);
         _p2 = new Point3D(p2);
         _p3 = new Point3D(p3);

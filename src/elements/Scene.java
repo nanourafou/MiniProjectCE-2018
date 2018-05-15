@@ -5,6 +5,8 @@ import geometries.Geometry;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.util.List;
+
 public class Scene {
 
     /**
@@ -34,7 +36,17 @@ public class Scene {
     private double _cameraDistance;
 
 
+    /**
+     * Ambient Light
+     */
     private AmbientLight _ambientLight;
+
+
+    /**
+     * List of All lights (Composite pattern ??)
+     */
+    private List<LightSource> _lights;
+
 
     /**
      * Default constructor for the scene
@@ -46,6 +58,8 @@ public class Scene {
         this._cameraDistance = 100;
         this._ambientLight = new AmbientLight(java.awt.Color.GRAY,1);
         this._geometriesManager = new Geometries();
+        this._lights = null;
+
     }
 
     /**
@@ -67,13 +81,14 @@ public class Scene {
      * @param c The camera of the scene
      * @param screenDistance The distance between the camera and the scene
      */
-    public Scene(String name,Color background, Camera c, AmbientLight amb, double screenDistance){
+    public Scene(String name,Color background, Camera c, AmbientLight amb, double screenDistance, List<LightSource> lights){
         this._name= name;
         this._background = background;
         this._camera = c;
         this._cameraDistance = screenDistance;
         this._ambientLight = amb;
         this._geometriesManager = new Geometries();
+        this._lights = lights;
     }
 
     /**
@@ -123,6 +138,14 @@ public class Scene {
         return _name;
     }
 
+
+    /**
+     * @return A list of lights
+     */
+    public List<LightSource> getLights() {
+        return _lights;
+    }
+
     /**
      * @param _background Setter of the background
      */
@@ -149,5 +172,12 @@ public class Scene {
      */
     public void setAmbientLight(AmbientLight ambientLight) {
         this._ambientLight = ambientLight;
+    }
+
+    /**
+     * @param _lights List of lights
+     */
+    public void setLights(List<LightSource> _lights) {
+        this._lights = _lights;
     }
 }

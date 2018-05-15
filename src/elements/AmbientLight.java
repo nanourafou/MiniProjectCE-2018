@@ -1,8 +1,7 @@
 package elements;
 
-public class AmbientLight {
+public class AmbientLight extends Light {
 
-    private Color _color;
     private double _ka;
 
 
@@ -11,7 +10,7 @@ public class AmbientLight {
      * @param ka The intensity of the color
      */
     public AmbientLight(Color c, double ka){
-        this._color = c;
+        super(c);
         this._ka = ka;
     }
 
@@ -20,7 +19,7 @@ public class AmbientLight {
      * @param ka The intensity of the color
      */
     public AmbientLight(java.awt.Color c, double ka){
-        this._color = new Color(c);
+        super(c);
         this._ka = ka;
     }
     /**

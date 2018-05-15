@@ -33,7 +33,7 @@ public class Geometries extends Geometry {
     @Override
     public Vector getNormal(Point3D p) {
         return null;
-    }
+    } //TODO
 
     /**
      * @param myRay Find intersection of all composite

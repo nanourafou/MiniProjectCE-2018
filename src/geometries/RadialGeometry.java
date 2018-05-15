@@ -1,6 +1,7 @@
 package geometries;
 
 import elements.Color;
+import primitives.Material;
 
 /**
  * Abstract class who describing all radial geometries in spaces.
@@ -17,8 +18,8 @@ public abstract class RadialGeometry extends Geometry {
         _radius = x._radius;
     }
 
-    public RadialGeometry(double radius, Color clr){
-        super(clr);
+    public RadialGeometry(double radius, Color clr, Material m){
+        super(clr, m);
         _radius = radius;
     }
 
