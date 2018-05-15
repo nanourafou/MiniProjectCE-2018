@@ -43,7 +43,7 @@ public class RendererTest {
         scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 0, 1),new Vector(0, -1, 0)));
         scene.setCameraDistance(100);
         scene.setBackground(new Color(255, 255, 255));
-        //scene.setAmbientLight(new AmbientLight( new Color(java.awt.Color.red ),1));
+        scene.setAmbientLight(new AmbientLight( new Color(java.awt.Color.black),0.1));
         Geometries geometries = scene.getGeometriesManager();
         geometries.addGeometry(new Sphere( new Point3D(0, 0, 150),50,  new Color(45,67,125)));
 
