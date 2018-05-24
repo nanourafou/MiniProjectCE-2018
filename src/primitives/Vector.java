@@ -170,7 +170,7 @@ public class Vector {
     /**
      * @return The reverse vector -v.
      */
-    public Vector getReverseVector() {
+    private Vector getReverseVector() {
         return this.mult(-1);
     }
 

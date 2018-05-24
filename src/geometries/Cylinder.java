@@ -1,6 +1,7 @@
 package geometries;
 
 import elements.Color;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -25,8 +26,8 @@ public class Cylinder  extends RadialGeometry{
      * @param origin Original position for the cylinder.
      * @param height The height of the cylinder.
      */
-    public Cylinder(Ray directionRay, double radius, Point3D origin, double height, Color clr){
-        super(radius, clr);
+    public Cylinder(Ray directionRay, double radius, Point3D origin, double height, Color clr, Material m){
+        super(radius, clr, m);
         this._directionRay = new Ray(directionRay);
         this._height = height;
         this._originPoint = new Point3D(origin);

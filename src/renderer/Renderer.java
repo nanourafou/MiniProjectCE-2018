@@ -1,10 +1,12 @@
 package renderer;
 
 import elements.Color;
+import elements.LightSource;
 import elements.Scene;
 import geometries.Geometry;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.util.HashMap;
 import java.util.List;
@@ -82,10 +84,22 @@ public class Renderer {
      */
     private Color calcColor(Geometry g, Point3D p){ //Why need a point ???
 
-        Color c = _scene.getAmbientLight().getIntensity();
-        c.add(g.getEmission());
-        return c;
+        Color color = _scene.getAmbientLight().getIntensity();
+        color.add(g.getEmission());
+        Vector n = g.getNormal(p);
+        int nShininess = g.getMterial().getNShininess();
+        double kd = g.getMterial().getKd();
+        double ks = g.getMterial().getKs();
+        for (LightSource lightSource : _scene.getLights()) {
+            Color lightIntensity = lightSource.getIntensity(p);
+            Vector l = lightSource.getL(p);
+            Vector v = p.subVector(_scene.getCamera().getP0());
+            color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+        }
+        return color;
     }
+
+
 
     /**
      * Get the closest point
@@ -123,5 +137,54 @@ public class Renderer {
      */
     public void writeToImage(){
         _imgWrter.writeToimage();
+    }
+
+
+    /**
+     * Calcul Specular
+     * @param ks
+     * @param v
+     * @param normal
+     * @param l
+     * @param shininess
+     * @param lightIntensity
+     * @return
+     */
+    private Color calcSpecular(double ks, Vector v, Vector normal, Vector l, double shininess, Color lightIntensity){
+        v = v.normalize();
+        normal = normal.normalize();
+        l = l.normalize();
+
+        normal = normal.mult(-2 * l.dotProduct(normal));
+        l = l.add(normal);
+        Vector R = new Vector(l);
+        R = R.normalize();
+        double k = 0;
+
+        if (v.dotProduct(R) > 0)
+            k = ks * Math.pow(v.dotProduct(R), shininess);
+
+        lightIntensity.scale(k);
+
+        return lightIntensity;
+    }
+
+    /**
+     * Calul Diffusion
+     * @param kd
+     * @param normal
+     * @param l
+     * @param lightIntensity
+     * @return
+     */
+    private Color calcDiffusive(double kd, Vector normal,
+                                    Vector l, Color lightIntensity) {
+
+        normal = normal.normalize();
+        l =l.normalize();
+        double k = Math.abs(kd * normal.dotProduct(l));
+        lightIntensity.scale(k);
+
+        return lightIntensity;
     }
 }
