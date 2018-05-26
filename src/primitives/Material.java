@@ -22,6 +22,8 @@ public class Material {
         this._nShininess = m._nShininess;
     }
 
+
+
     /**
      * @return
      */

@@ -8,6 +8,7 @@ import geometries.Geometries;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Vector;
 import renderer.ImageWriter;
@@ -84,24 +85,24 @@ public class RendererTest {
         scene.setBackground(new Color(0,0,0));
         //scene.setAmbientLight(new AmbientLight( new Color(40,60,255),1));
         Geometries geometries = scene.getGeometriesManager();
-        geometries.addGeometry(new Sphere( new Point3D(0, 0, 150),50,  new Color(java.awt.Color.darkGray), null));
+        geometries.addGeometry(new Sphere( new Point3D(0, 0, 150),50,  new Color(java.awt.Color.darkGray), new Material(1,1,1)));
 
         geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
                 new Point3D(  0, 100, 149),
-                new Point3D( 100, 100, 149), new Color(java.awt.Color.red),null));
+                new Point3D( 100, 100, 149), new Color(java.awt.Color.red),new Material(1,1,1)));
 
         geometries.addGeometry(new Triangle(new Point3D( 100, 0, 149),
                 new Point3D(  0, -100, 149),
-                new Point3D( 100,-100, 149), new Color(java.awt.Color.YELLOW),null));
+                new Point3D( 100,-100, 149), new Color(java.awt.Color.YELLOW),new Material(1,1,1)));
 
         geometries.addGeometry(new Triangle(new Point3D(-100, 0, 149),
                 new Point3D(  0, 100, 149),
-                new Point3D(-100, 100, 149), new Color(java.awt.Color.CYAN),null));
+                new Point3D(-100, 100, 149), new Color(java.awt.Color.CYAN),new Material(1,1,1)));
 
 
         Triangle tr = new Triangle(new Point3D(-100, 0, 149),
                 new Point3D(  0,  -100, 149),
-                new Point3D(-100, -100, 149), new Color(java.awt.Color.MAGENTA),null);
+                new Point3D(-100, -100, 149), new Color(java.awt.Color.MAGENTA),new Material(1,1,1));
         geometries.addGeometry(tr);
 
 

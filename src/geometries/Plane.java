@@ -67,6 +67,7 @@ public class Plane extends Geometry {
     }
 
 
+
     // ***************** Administration  ******************** //
     @Override
     public String toString() {

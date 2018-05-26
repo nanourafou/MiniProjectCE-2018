@@ -87,7 +87,7 @@ public class Renderer {
         Color color = _scene.getAmbientLight().getIntensity();
         color.add(g.getEmission());
         Vector n = g.getNormal(p);
-        int nShininess = g.getMterial().getNShininess();
+        int nShininess = 1;// g.getMterial().getNShininess();
         double kd = g.getMterial().getKd();
         double ks = g.getMterial().getKs();
         for (LightSource lightSource : _scene.getLights()) {
