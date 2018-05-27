@@ -5,6 +5,7 @@ import geometries.Geometry;
 import primitives.Point3D;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
@@ -58,7 +59,7 @@ public class Scene {
         this._cameraDistance = 100;
         this._ambientLight = new AmbientLight(java.awt.Color.GRAY,1);
         this._geometriesManager = new Geometries();
-        this._lights = null;
+        this._lights = new ArrayList<>();
 
     }
 
@@ -72,6 +73,7 @@ public class Scene {
         this._cameraDistance = 0;
         this._ambientLight = null;
         this._geometriesManager = new Geometries();
+        this._lights = new ArrayList<>();
     }
 
     /**
@@ -88,7 +90,11 @@ public class Scene {
         this._cameraDistance = screenDistance;
         this._ambientLight = amb;
         this._geometriesManager = new Geometries();
-        this._lights = lights;
+        if(lights!=null)
+            this._lights = new ArrayList<>(lights);
+
+        else
+            this._lights = new ArrayList<>();
     }
 
     /**

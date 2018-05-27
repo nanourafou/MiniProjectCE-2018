@@ -68,7 +68,13 @@ public class Renderer {
                 else {
                     Map<Geometry, Point3D> closePoint = getClosestPoint(lstIntersections);
                     for (Map.Entry<Geometry, Point3D> entry: closePoint.entrySet()) {
-                        _imgWrter.writePixel(j,i,calcColor(entry.getKey(), entry.getValue()).getColor());
+                        if(entry.getValue()!=null){
+                            _imgWrter.writePixel(j,i,calcColor(entry.getKey(), entry.getValue()).getColor());
+                        }
+                        else {
+                            _imgWrter.writePixel(j,i,_scene.getBackground().getColor());
+                        }
+
                     }
 
                 }
@@ -87,14 +93,17 @@ public class Renderer {
         Color color = _scene.getAmbientLight().getIntensity();
         color.add(g.getEmission());
         Vector n = g.getNormal(p);
-        int nShininess = 1;// g.getMterial().getNShininess();
+        int nShininess =  g.getMterial().getNShininess();
         double kd = g.getMterial().getKd();
         double ks = g.getMterial().getKs();
-        for (LightSource lightSource : _scene.getLights()) {
-            Color lightIntensity = lightSource.getIntensity(p);
-            Vector l = lightSource.getL(p);
-            Vector v = p.subVector(_scene.getCamera().getP0());
-            color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+
+        if(_scene.getLights()!=null){
+            for (LightSource lightSource : _scene.getLights()) {
+                Color lightIntensity = lightSource.getIntensity(p);
+                Vector l = lightSource.getL(p);
+                Vector v = p.subVector(_scene.getCamera().getP0());
+                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+            }
         }
         return color;
     }
