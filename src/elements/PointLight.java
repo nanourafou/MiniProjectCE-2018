@@ -37,18 +37,30 @@ public class PointLight extends Light  implements LightSource{
         this._Kq = p._Kq;
     }
 
+    /**
+     * @return kc
+     */
     public double getKc() {
         return _Kc;
     }
 
+    /**
+     * @return kl
+     */
     public double getKl() {
         return _Kl;
     }
 
+    /**
+     * @return kq
+     */
     public double getKq() {
         return _Kq;
     }
 
+    /**
+     * @return position
+     */
     public Point3D getPosition() {
         return _position;
     }
