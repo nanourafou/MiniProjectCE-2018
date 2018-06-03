@@ -22,6 +22,11 @@ public class AmbientLight extends Light {
         super(c);
         this._ka = ka;
     }
+
+    public AmbientLight( AmbientLight light){
+        super(light);
+        this._ka = light._ka;
+    }
     /**
      * @return The intensity of the point I
      */

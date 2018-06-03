@@ -1,5 +1,6 @@
 package renderer;
 
+import elements.AmbientLight;
 import elements.Color;
 import elements.LightSource;
 import elements.Scene;
@@ -94,7 +95,7 @@ public class Renderer {
      */
     private Color calcColor(Geometry g, Point3D p){ //Why need a point ???
 
-        Color color = _scene.getAmbientLight().getIntensity();
+        Color color = new Color(_scene.getAmbientLight().getIntensity());
         color.add(g.getEmission());
         Vector n = g.getNormal(p);
         int nShininess =  g.getMaterial().getNShininess();
@@ -107,9 +108,48 @@ public class Renderer {
                 Vector l = lightSource.getL(p);
                 Vector v = p.subVector(_scene.getCamera().getP0());
                 //color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+            }
+        }
+        return color;
+        /*Color color = _scene.getAmbientLight().getIntensity();
+        color.add(g.getEmission());
+        Vector n = g.getNormal(p);
+        Vector v = p.subVector(_scene.getCamera().getP0()).normalize();
+        int nShininess =  g.getMaterial().getNShininess();
+        double kd = g.getMaterial().getKd();
+        double ks = g.getMaterial().getKs();
+
+        if(_scene.getLights()!=null){
+            for (LightSource lightSource : _scene.getLights()) {
+                Color lightIntensity = lightSource.getIntensity(p);
+                Vector l = lightSource.getL(p);
+
+                //color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
                 color.add(calcDiffuse(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
             }
         }
+        return color;*/
+
+    }
+
+
+    private Color calcColor(GeoPoint geopoint){
+        Color color = new Color(_scene.getAmbientLight().getIntensity());
+        color.add(geopoint.getGeometry().getEmission());
+        Vector v = geopoint.getPoint().subVector(_scene.getCamera().getP0()).normalize();
+        Vector n = geopoint.getGeometry().getNormal(geopoint.getPoint());
+        int nShininess = geopoint.getGeometry().getMaterial().getNShininess();
+        double kd = geopoint.getGeometry().getMaterial().getKd();
+        double ks = geopoint.getGeometry().getMaterial().getKs();
+
+        for (LightSource lightSource : _scene.getLights()) {
+            Vector l = lightSource.getL(geopoint.getPoint());
+            if (n.dotProduct(l)*n.dotProduct(v) > 0)
+                if (!occluded(l, geopoint)) {
+                Color lightIntensity = lightSource.getIntensity(geopoint.getPoint());
+                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+            } }
         return color;
     }
 
@@ -216,9 +256,27 @@ public class Renderer {
         return lightIntensity;
     }*/
 
-    private Color calcDiffuse(double Kd, Vector l, Vector n, Color lightIntensity) {
+    private Color calcDiffusive(double Kd, Vector l, Vector n, Color lightIntensity) {
         double k = Kd * Math.abs(n.dotProduct(l));
         lightIntensity.scale(k);
         return lightIntensity;
+    }
+
+
+    /**
+     * Occuled function of shadow
+     * @param l
+     * @param geopoint Geopoint
+     * @return
+     */
+    private boolean occluded(Vector l, GeoPoint geopoint) {
+        Vector lightDirection = l.mult(-1); // from point to light source
+        Vector normal = geopoint.getGeometry().getNormal(geopoint.getPoint());
+        Vector epsVector = normal.mult(2);
+        epsVector = normal.mult((normal.dotProduct(lightDirection) > 0) ? 2 : -2);
+        Point3D geometryPoint = geopoint.getPoint().addVector(epsVector);
+        Ray lightRay = new Ray(geometryPoint, lightDirection);
+        Map<Geometry, List<Point3D>> intersectionPoints = _scene.getGeometriesManager().findIntersections(lightRay);
+        return !intersectionPoints.isEmpty();
     }
 }

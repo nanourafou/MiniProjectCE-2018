@@ -15,7 +15,7 @@ public class LightsTest {
     @Test
     public void sphereTest(){
         Scene scene = new Scene();
-        scene.setCamera(new Camera  (new Point3D(0, 0, 0), new Vector(0, 0, 1),new Vector(0, -1, 0)));
+        scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0, 0, 1),new Vector(0, -1, 0)));
         scene.setCameraDistance(400);
         scene.setBackground(new Color(0,0,0));
         scene.setAmbientLight(new AmbientLight( java.awt.Color.white,0.1));
@@ -34,8 +34,32 @@ public class LightsTest {
         render.writeToImage();
     }
 
+    @Test
+    public void pointLightTestTSphere() {
+
+        Scene scene = new Scene("pointLightTestTSphere");
+        scene.setCamera(new Camera(new Point3D(0, 0, 10), new Vector(0.0, 0.0, -1.0),new Vector(1.0, 0.0, 0.0)));
+        scene.setBackground(new Color(0,0,0));
+        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+        scene.setCameraDistance(200);
+
+        Sphere sphere = new Sphere(new Point3D(0, 0, -1000),600, new Color(0, 0, 100), new Material(1, 0.7, 80));
+        scene.addGeometry(sphere);
+
+        scene.getLights().add(new PointLight(new Color(150, 250, 150), new Point3D(-200, -200, -100), 1, 0.0000009, 0.000008));
+
+        ImageWriter imageWriter = new ImageWriter(scene.getName(), 500, 500, 500, 500);
+
+        Renderer render = new Renderer(scene,imageWriter);
+
+
+        render.renderImage();
+        render.writeToImage();
+    }
+
+
     /*@Test
-    public void spotLightTestTriangle(){
+    public void spotLightTest1(){
         Scene scene = new Scene("spotLightTestTriangle");
         scene.setCamera(new Camera(new Point3D(0, 0, 10),  new Vector(0, 0, -1),new Vector(1, 0, 0)));
         scene.setCameraDistance(400);
@@ -68,31 +92,8 @@ public class LightsTest {
         render.writeToImage();
     }*/
 
-    @Test
-    public void pointLightTestTSphere() {
 
-        Scene scene = new Scene("pointLightTestTSphere");
-        scene.setCamera(new Camera(new Point3D(0, 0, 10), new Vector(0.0, 0.0, -1.0),new Vector(1.0, 0.0, 0.0)));
-        scene.setBackground(new Color(0,0,0));
-        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
-        scene.setCameraDistance(200);
-
-        Sphere sphere = new Sphere(new Point3D(0, 0, -1000),600, new Color(0, 0, 100), new Material(1, 0.7, 80));
-        scene.addGeometry(sphere);
-
-        //scene.getLights().add(new PointLight(new Color(150, 250, 150), new Point3D(-200, -200, -100), 0, 0, 0.000008));
-        scene.getLights().add(new PointLight(new Color(150, 250, 150), new Point3D(-200, -200 , -100), 0, 0, 0.000008));
-
-        ImageWriter imageWriter = new ImageWriter(scene.getName(), 500, 500, 500, 500);
-
-        Renderer render = new Renderer(scene,imageWriter);
-
-
-        render.renderImage();
-        render.writeToImage();
-    }
-
-    @Test
+    /*@Test
     public void spotLightTestSphere(){
 
         Scene scene = new Scene("spotLightTestSphere");
@@ -114,7 +115,7 @@ public class LightsTest {
 
         render.renderImage();
         render.writeToImage();
-    }
+    }*/
 
 
 
