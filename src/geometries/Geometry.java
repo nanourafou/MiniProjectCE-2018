@@ -63,7 +63,7 @@ public abstract class Geometry {
     /**
      * @return The Material
      */
-    public Material getMterial() {
+    public Material getMaterial() {
         return _material;
     }
 }

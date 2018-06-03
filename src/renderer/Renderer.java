@@ -18,6 +18,10 @@ public class Renderer {
     private ImageWriter _imgWrter;
 
 
+    /**
+     * Print grid
+     * @param interval Intervale distance
+     */
     public void printGrid(int interval){
         int height = _imgWrter.getHeight();
         int width = _imgWrter.getWidth();
@@ -93,16 +97,17 @@ public class Renderer {
         Color color = _scene.getAmbientLight().getIntensity();
         color.add(g.getEmission());
         Vector n = g.getNormal(p);
-        int nShininess =  g.getMterial().getNShininess();
-        double kd = g.getMterial().getKd();
-        double ks = g.getMterial().getKs();
+        int nShininess =  g.getMaterial().getNShininess();
+        double kd = g.getMaterial().getKd();
+        double ks = g.getMaterial().getKs();
 
         if(_scene.getLights()!=null){
             for (LightSource lightSource : _scene.getLights()) {
                 Color lightIntensity = lightSource.getIntensity(p);
                 Vector l = lightSource.getL(p);
                 Vector v = p.subVector(_scene.getCamera().getP0());
-                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                //color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                color.add(calcDiffuse(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
             }
         }
         return color;
@@ -159,7 +164,7 @@ public class Renderer {
      * @param lightIntensity
      * @return
      */
-    private Color calcSpecular(double ks, Vector v, Vector normal, Vector l, double shininess, Color lightIntensity){
+    /*private Color calcSpecular(double ks, Vector v, Vector normal, Vector l, double shininess, Color lightIntensity){
         v = v.normalize();
         normal = normal.normalize();
         l = l.normalize();
@@ -176,6 +181,20 @@ public class Renderer {
         lightIntensity.scale(k);
 
         return lightIntensity;
+
+    }*/
+
+    private Color calcSpecular(double Ks, Vector l, Vector n, Vector v, int shininess, Color lightIntensity) {
+        // Vector r = l.subtract(n.scalarMult(2 * l.dotProduct(n))).normalize();
+        double ln = l.dotProduct(n) * 2;
+        Vector lnn = n.mult(ln);
+        Vector r = (l.sub(lnn)).normalize();
+        double vr = v.dotProduct(r);
+        if (vr >= 0)
+            return new Color(0, 0, 0);
+        double k = Ks * Math.pow(-vr, shininess);
+        lightIntensity.scale(k);
+        return lightIntensity;
     }
 
     /**
@@ -186,14 +205,20 @@ public class Renderer {
      * @param lightIntensity
      * @return
      */
-    private Color calcDiffusive(double kd, Vector normal,
+    /*private Color calcDiffusive(double kd, Vector normal,
                                     Vector l, Color lightIntensity) {
 
         normal = normal.normalize();
         l =l.normalize();
-        double k = Math.abs(kd * normal.dotProduct(l));
+        double k = kd * Math.abs(normal.dotProduct(l));
         lightIntensity.scale(k);
 
+        return lightIntensity;
+    }*/
+
+    private Color calcDiffuse(double Kd, Vector l, Vector n, Color lightIntensity) {
+        double k = Kd * Math.abs(n.dotProduct(l));
+        lightIntensity.scale(k);
         return lightIntensity;
     }
 }
