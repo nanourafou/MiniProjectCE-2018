@@ -47,7 +47,7 @@ public class Color {
     /**
      * @param colors Color to add to our color.
      */
-    public void add(Color... colors){
+    public Color add(Color... colors){
         int r= _color.getRed();
         int g= _color.getGreen();
         int b= _color.getBlue();
@@ -71,12 +71,14 @@ public class Color {
         if (r > 255)
             r = 255;
         _color =  new java.awt.Color((int) r, (int) g, (int) b);
+
+        return this;
     }
 
     /**
      * @param s Mult the color by a double
      */
-    public void scale(double s){
+    public Color scale(double s){
         double r = _color.getRed() *s;
         double g = _color.getGreen() *s;
         double b = _color.getBlue() *s;
@@ -95,13 +97,15 @@ public class Color {
             b=255;
 
         _color = new java.awt.Color((int) r,(int)g,(int)b);
+
+        return this;
     }
 
     /**
      * Reduce the color By a double
      * @param r The double operand
      */
-    public void reduce(double r){
+    public Color reduce(double r){
         double red = _color.getRed() -r;
         double g = _color.getGreen() -r;
         double b = _color.getBlue() -r;
@@ -120,7 +124,7 @@ public class Color {
 
         _color = new java.awt.Color((int)red,(int)g,(int)b);
 
-
+        return this;
     }
 
 

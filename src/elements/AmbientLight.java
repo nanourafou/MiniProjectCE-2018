@@ -15,6 +15,7 @@ public class AmbientLight extends Light {
     }
 
     /**
+     * dsjf dsf gjhsdfgkjsdgfh
      * @param c Color (From java)
      * @param ka The intensity of the color
      */

@@ -68,7 +68,7 @@ public class Scene {
      */
     public Scene(String name){
         this._name=name;
-        this._background = null;
+        this._background = new Color(java.awt.Color.black);
         this._camera = null;
         this._cameraDistance = 0;
         this._ambientLight = null;

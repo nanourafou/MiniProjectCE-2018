@@ -22,16 +22,6 @@ public class SpotLight extends PointLight {
     }
 
     /**
-     * Copy Ctor
-     * @param p The pointLight to copy
-     */
-    public SpotLight(SpotLight p) {
-        super(p);
-        this._direction = p._direction.normalize();
-    }
-
-
-    /**
      * @return Direction vector
      */
     public Vector getDirection() {
@@ -40,9 +30,6 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point3D p) {
-        Color c = super.getIntensity(p);
-        Vector l = getL(p);
-        c.scale(_direction.dotProduct(l));
-        return c;
+        return super.getIntensity(p).scale(_direction.dotProduct(getL(p)));
     }
 }

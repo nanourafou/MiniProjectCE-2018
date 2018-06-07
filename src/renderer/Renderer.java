@@ -106,7 +106,7 @@ public class Renderer {
             for (LightSource lightSource : _scene.getLights()) {
                 Color lightIntensity = lightSource.getIntensity(p);
                 Vector l = lightSource.getL(p);
-                Vector v = p.subVector(_scene.getCamera().getP0());
+                Vector v = p.subVector(_scene.getCamera().getP0()).normalize();
                 //color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
                 color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
             }
