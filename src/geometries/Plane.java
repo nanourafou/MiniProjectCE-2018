@@ -25,7 +25,7 @@ public class Plane extends Geometry {
      */
     public Plane(Vector normalVector, Point3D point, Color clr, Material m){
         super(clr, m);
-        this._normal = new Vector(normalVector);
+        this._normal = new Vector(normalVector).normalize();
         this._p = new Point3D(point);
     }
 
@@ -37,11 +37,11 @@ public class Plane extends Geometry {
      */
     public Plane(Point3D x, Point3D y, Point3D z, Color clr, Material m){ // A revoir
         super(clr, m);
-        Vector v1 = new Vector(x);
-        Vector v2 = new Vector(y);
+        Vector v1 = new Vector(x).normalize();
+        Vector v2 = new Vector(y).normalize();
 
         if(v1.isColinear(v2)) {
-            v2 = new Vector(z);
+            v2 = new Vector(z).normalize();
 
             if (v1.isColinear(v2)){
                 throw new IllegalArgumentException("Can't define a plan with two colinears vectors");
@@ -101,7 +101,7 @@ public class Plane extends Geometry {
 
     @Override
     public Vector getNormal(Point3D p) {
-        return _normal;
+        return _normal.normalize();
     }
 
     @Override

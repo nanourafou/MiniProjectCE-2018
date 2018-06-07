@@ -32,7 +32,7 @@ public class DirectionalLight extends Light implements LightSource{
      * @return Directionnal vector
      */
     public Vector getDirection() {
-        return _direction;
+        return _direction.normalize();
     }
 
     @Override
@@ -42,11 +42,11 @@ public class DirectionalLight extends Light implements LightSource{
 
     @Override
     public Vector getL(Point3D p) {
-        return _direction;
+        return _direction.normalize();
     }
 
     @Override
     public Vector getD(Point3D p) {
-        return _direction;
+        return _direction.normalize();
     }
 }

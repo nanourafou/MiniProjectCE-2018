@@ -1,6 +1,5 @@
 package renderer;
 
-import elements.AmbientLight;
 import elements.Color;
 import elements.LightSource;
 import elements.Scene;
@@ -74,6 +73,9 @@ public class Renderer {
                     Map<Geometry, Point3D> closePoint = getClosestPoint(lstIntersections);
                     for (Map.Entry<Geometry, Point3D> entry: closePoint.entrySet()) {
                         if(entry.getValue()!=null){
+                            if(i>210 && j>210){
+                                int we =1;
+                            }
                             _imgWrter.writePixel(j,i,calcColor(entry.getKey(), entry.getValue()).getColor());
                         }
                         else {
@@ -108,7 +110,9 @@ public class Renderer {
                 Vector l = lightSource.getL(p);
                 Vector v = p.subVector(_scene.getCamera().getP0()).normalize();
                 //color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
-                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                Color diff = calcDiffusive(kd, l, n, lightIntensity);
+                Color speclar = calcSpecular(ks, l, n, v, nShininess, lightIntensity);
+                color.add(diff,speclar);
             }
         }
         return color;
@@ -148,7 +152,7 @@ public class Renderer {
             if (n.dotProduct(l)*n.dotProduct(v) > 0)
                 if (!occluded(l, geopoint)) {
                 Color lightIntensity = lightSource.getIntensity(geopoint.getPoint());
-                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(1000, l, n, v, nShininess, lightIntensity));
             } }
         return color;
     }
@@ -225,17 +229,15 @@ public class Renderer {
     }*/
 
     private Color calcSpecular(double Ks, Vector l, Vector n, Vector v, int shininess, Color lightIntensity) {
-        // Vector r = l.subtract(n.scalarMult(2 * l.dotProduct(n))).normalize();
-        double ln = l.dotProduct(n) * 2;
-        Vector lnn = n.mult(ln);
-        Vector r = (l.sub(lnn)).normalize();
-        double vr = v.dotProduct(r);
+        Vector ls = l.sub(n.mult(l.dotProduct(n) * 2)).normalize();
+        double vr = v.dotProduct(ls);
         if (vr >= 0)
             return new Color(0, 0, 0);
         double k = Ks * Math.pow(-vr, shininess);
-        lightIntensity.scale(k);
-        return lightIntensity;
+
+        return lightIntensity.scale(k);
     }
+
 
     /**
      * Calul Diffusion

@@ -33,7 +33,6 @@ public class AmbientLight extends Light {
      */
     public Color getIntensity() {
         Color c=new Color(_color); //We need to modify the original color - not optimal
-        c.scale(_ka);
-        return c;
+        return c.scale(_ka);
     }
 }

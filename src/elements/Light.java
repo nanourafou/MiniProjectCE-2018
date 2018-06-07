@@ -48,5 +48,5 @@ public abstract class Light {
     /**
      * @return The intensity of the point I
      */
-    public Color getIntensity() {return _color;}
+    public Color getIntensity() {return  _color;}
 }

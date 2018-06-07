@@ -25,7 +25,7 @@ public class SpotLight extends PointLight {
      * @return Direction vector
      */
     public Vector getDirection() {
-        return _direction;
+        return _direction.normalize();
     }
 
     @Override

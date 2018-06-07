@@ -16,7 +16,7 @@ public class Ray {
      */
     public Ray(Point3D origin, Vector direction){
         _origin = new Point3D(origin);
-        _direction = new Vector(direction);
+        _direction = new Vector(direction).normalize();
     }
 
     /**
@@ -24,7 +24,7 @@ public class Ray {
      */
     public Ray(Point3D origin, Point3D headVector){
         _origin = new Point3D(origin);
-        _direction =new Vector(headVector);
+        _direction =new Vector(headVector).normalize();
     }
 
 
@@ -49,7 +49,7 @@ public class Ray {
      * @return The direction vector.
      */
     public Vector getDirection(){
-        return _direction;
+        return _direction.normalize();
     }
 
     // ***************** Administration  ******************** //
