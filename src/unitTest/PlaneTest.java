@@ -21,7 +21,7 @@ public class PlaneTest {
         //assertEquals(p1.findIntersections(r1).get(0),new Point3D(0,0,0));
         //assertEquals(p1.findIntersections(r2).size(),0);
 
-        //assertEquals(p2.findIntersections(r3).size(),0);
+       // assertEquals(p2.findIntersections(r3).size(),0);
 
 
     }

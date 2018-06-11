@@ -58,8 +58,6 @@ public class Geometries extends Geometry {
             }
 
             }
-
-
             return map;
     }
 }

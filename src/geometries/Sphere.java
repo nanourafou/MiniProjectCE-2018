@@ -65,19 +65,19 @@ public class Sphere extends RadialGeometry {
      * @return The vector normal.
      */
     public Vector getNormal(Point3D p){
-      return   (this._center.subVector(p)).normalize();
+      return   (p.subVector(this._center)).normalize();
     }
 
     @Override
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
         Vector l = _center.subVector(myRay.getOrigin());
         double tm = l.dotProduct(myRay.getDirection());
-        double d = Math.sqrt(Math.pow(l.size(), 2) - Math.pow(tm, 2));
+        double d = Math.sqrt(l.size()*l.size() - tm*tm);
 
         if (d > this._radius)
             return null;
 
-        double th = Math.sqrt(Math.pow(_radius, 2) - Math.pow(d, 2));
+        double th = Math.sqrt(_radius*_radius - d*d);
 
         double t1 = tm - th;
         double t2 = tm + th;
@@ -96,7 +96,10 @@ public class Sphere extends RadialGeometry {
             lst.add(p2);
         }
         Map<Geometry, List<Point3D>> m = new HashMap<>();
-        m.put(this,lst);
+        if(!lst.isEmpty())
+        {
+            m.put(this,lst);
+        }
         return m;
     }
 

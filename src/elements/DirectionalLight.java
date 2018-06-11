@@ -16,7 +16,7 @@ public class DirectionalLight extends Light implements LightSource{
      */
     public DirectionalLight(Color c, Vector _direction){
         super(c);
-        this._direction = new Vector(_direction);
+        this._direction = new Vector(_direction).normalize();
     }
 
     /**
@@ -25,14 +25,14 @@ public class DirectionalLight extends Light implements LightSource{
      */
     public DirectionalLight(DirectionalLight l){
         super(l);
-        this._direction = new Vector(l._direction).normalize();
+        this._direction = new Vector(l._direction);
     }
 
     /**
      * @return Directionnal vector
      */
     public Vector getDirection() {
-        return _direction.normalize();
+        return _direction;
     }
 
     @Override
@@ -47,6 +47,6 @@ public class DirectionalLight extends Light implements LightSource{
 
     @Override
     public Vector getD(Point3D p) {
-        return _direction.normalize();
+        return getL(p);
     }
 }

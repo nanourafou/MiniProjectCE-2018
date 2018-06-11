@@ -123,16 +123,28 @@ public class Vector {
      * @return UxV (Cross Product between vectors).
      */
     public Vector crossProdcut(Vector v){
-
+        /*
         //Alias
         Point3D p = this.getHead();
         Point3D pv = v.getHead();
 
+
         Coordinate x = (p._y.mult(pv._z)).sub((pv._y.mult(p._z)));
         Coordinate y = (p._z.mult(pv._x)).sub((pv._z.mult(p._x)));
         Coordinate z = (p._x.mult(pv._y)).sub((pv._x.mult(p._y)));
-
         return new Vector(x,y,z);
+        */
+
+        double u1=this.getHead().getX().get();
+        double u2=this.getHead().getY().get();
+        double u3=this.getHead().getZ().get();
+
+        double v1=v.getHead().getX().get();
+        double v2=v.getHead().getY().get();
+        double v3=v.getHead().getZ().get();
+
+        return new Vector(u2*v3-u3*v2,u3*v1-u1*v3,u1*v2-u2*v1);
+
     }
 
     /**

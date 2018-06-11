@@ -14,16 +14,17 @@ import java.util.*;
 public class Plane extends Geometry {
 
     private Point3D _p;
-    private Vector  _normal;
+    private Vector _normal;
 
     // ***************** Constructors ********************** //
 
     /**
      * Constructor for a plane.
+     *
      * @param normalVector The vector director (vector normal deduced).
-     * @param point The point who will be on the plane.
+     * @param point        The point who will be on the plane.
      */
-    public Plane(Vector normalVector, Point3D point, Color clr, Material m){
+    public Plane(Vector normalVector, Point3D point, Color clr, Material m) {
         super(clr, m);
         this._normal = new Vector(normalVector).normalize();
         this._p = new Point3D(point);
@@ -35,21 +36,20 @@ public class Plane extends Geometry {
      * @param y The Coordinate y
      * @param z The Coordinate y
      */
-    public Plane(Point3D x, Point3D y, Point3D z, Color clr, Material m){ // A revoir
+    public Plane(Point3D x, Point3D y, Point3D z, Color clr, Material m) { // A revoir
         super(clr, m);
         Vector v1 = new Vector(x).normalize();
         Vector v2 = new Vector(y).normalize();
 
-        if(v1.isColinear(v2)) {
+        if (v1.isColinear(v2)) {
             v2 = new Vector(z).normalize();
 
-            if (v1.isColinear(v2)){
+            if (v1.isColinear(v2)) {
                 throw new IllegalArgumentException("Can't define a plan with two colinears vectors");
             }
 
             this._p = new Point3D(y);
-        }
-        else {
+        } else {
             this._p = new Point3D(z);
         }
 
@@ -60,18 +60,17 @@ public class Plane extends Geometry {
     /**
      * Copy Constructor
      */
-    public Plane(Plane plane){
+    public Plane(Plane plane) {
         super(plane);
         this._normal = new Vector(plane._normal);
         this._p = new Point3D(plane._p);
     }
 
 
-
     // ***************** Administration  ******************** //
     @Override
     public String toString() {
-        return "P = "+_normal.getHead().getX()+"*"+_p.getX()+"+"+_normal.getHead().getY()+"*"+_p.getY()+"+"+_normal.getHead().getZ()+"*"+_p.getZ();
+        return "P = " + _normal.getHead().getX() + "*" + _p.getX() + "+" + _normal.getHead().getY() + "*" + _p.getY() + "+" + _normal.getHead().getZ() + "*" + _p.getZ();
     }
 
     @Override
@@ -79,11 +78,11 @@ public class Plane extends Geometry {
         if (this == obj) return true;
         if (obj == null) return false;
 
-        if(!(obj instanceof Plane))
+        if (!(obj instanceof Plane))
             return false;
-        Plane toCompare = (Plane)obj;
+        Plane toCompare = (Plane) obj;
 
-        return toCompare._normal.equals(this._normal)&&toCompare._p.equals(this._p);
+        return toCompare._normal.equals(this._normal) && toCompare._p.equals(this._p);
 
     }
 
@@ -112,7 +111,7 @@ public class Plane extends Geometry {
 
         double denom = _normal.dotProduct(myRay.getDirection());
 
-        if(denom==0)
+        if (denom == 0)
             return null; //prevent divide by zero
 
         Vector d = this._p.subVector(myRay.getOrigin());
@@ -123,11 +122,14 @@ public class Plane extends Geometry {
 
         Point3D p = myRay.getOrigin().addVector(v);
 
+
         List<Point3D> lst = new ArrayList<>();
 
-        lst.add(p);
+        if (p != null)
+            lst.add(p);
+        if (!lst.isEmpty())
+            m.put(this, lst);
 
-        m.put(this,lst);
         return m;
 
     }

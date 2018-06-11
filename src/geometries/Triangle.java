@@ -122,7 +122,9 @@ public class Triangle extends Plane {
         if(s1==0 || s2==0 || s3==0)
             return null;
         if(Tools.sameSign(new double[] {s1,s2,s3})) {
-            m.put(this,lst);
+            if(!lst.isEmpty()) {
+                m.put(this, lst);
+            }
             return m;
         }
         else

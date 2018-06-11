@@ -61,9 +61,7 @@ public class Camera {
 
         _vToward = towardVector.normalize();
         _vUp = upVector.normalize();
-        _vRight = towardVector.crossProdcut(upVector);
-
-        //_vRight = new Vector(1,0,0);
+        _vRight = towardVector.crossProdcut(upVector).normalize();
         _p0 = new Point3D(centerPosition);
 
     }
