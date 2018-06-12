@@ -74,11 +74,8 @@ public class Renderer {
                     for (Map.Entry<Geometry, Point3D> entry : closePoint.entrySet()) {
                         if (entry.getValue() != null) {
 
-
+                            _imgWrter.writePixel(j, i, calcColor( new GeoPoint( entry.getValue(),entry.getKey())).getColor());
                             //_imgWrter.writePixel(j, i, calcColor(entry.getKey(), entry.getValue()).getColor());
-
-                            GeoPoint geo = new GeoPoint(entry.getValue(),entry.getKey());
-                            _imgWrter.writePixel(j, i, calcColor(geo).getColor());
                         } else {
                             _imgWrter.writePixel(j, i, _scene.getBackground().getColor());
                         }
@@ -126,25 +123,6 @@ public class Renderer {
 
 
     private Color calcColor(GeoPoint geopoint) {
-        /*Color color = new Color(_scene.getAmbientLight().getIntensity());
-        color.add(geopoint.getGeometry().getEmission());
-        Vector v = geopoint.getPoint().subVector(_scene.getCamera().getP0()).normalize();
-        Vector n = geopoint.getGeometry().getNormal(geopoint.getPoint());
-        int nShininess = geopoint.getGeometry().getMaterial().getNShininess();
-        double kd = geopoint.getGeometry().getMaterial().getKd();
-        double ks = geopoint.getGeometry().getMaterial().getKs();
-
-        for (LightSource lightSource : _scene.getLights()) {
-            Vector l = lightSource.getL(geopoint.getPoint());
-            if (n.dotProduct(l) * n.dotProduct(v) > 0)
-                if (!occluded(l, geopoint)) {
-                    Color lightIntensity = lightSource.getIntensity(geopoint.getPoint());
-                    color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
-                }
-        }
-        return color;*/
-
-
         Color color = new Color(_scene.getAmbientLight().getIntensity());
         color.add(geopoint.getGeometry().getEmission());
         Vector n = geopoint.getGeometry().getNormal(geopoint.getPoint());
@@ -197,10 +175,11 @@ public class Renderer {
             }
 
         }
-        if (key == null)
-            return null;
+
         Map<Geometry, Point3D> m1 = new HashMap<>();
-        m1.put(key, minDistancePoint);
+
+        if (key != null)
+            m1.put(key, minDistancePoint);
 
         return m1;
     }
@@ -263,7 +242,7 @@ public class Renderer {
      * @return
      */
     private boolean occluded(Vector l, GeoPoint geopoint) {
-        Vector lightDirection = l.mult(-1); // from point to light source
+        Vector lightDirection =  new Vector(l.mult(-1)); // from point to light source
         Vector normal = geopoint.getGeometry().getNormal(geopoint.getPoint()).mult(2);
         Vector epsVector = normal.mult((normal.dotProduct(lightDirection) > 0) ? 2 : -2);
         Point3D geometryPoint = geopoint.getPoint().addVector(epsVector);

@@ -112,7 +112,7 @@ public class Plane extends Geometry {
         double denom = _normal.dotProduct(myRay.getDirection());
 
         if (denom == 0)
-            return null; //prevent divide by zero
+            return m; //prevent divide by zero
 
         Vector d = this._p.subVector(myRay.getOrigin());
 

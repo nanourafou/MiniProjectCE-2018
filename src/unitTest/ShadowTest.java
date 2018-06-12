@@ -23,12 +23,11 @@ public class ShadowTest {
 
         Sphere sphere = new Sphere(new Point3D(0, 0, 1000),600, new Color(0, 0, 100), new Material(1, 90, 201));
 
-        Sphere s2 = new Sphere(new Point3D(0, 0, 400),150, new Color(0, 100, 0), new Material(1, 90, 201));
-
-        //Triangle tr = new Triangle(new Point3D(500,-400,100),new Point3D(500,-200,100),new Point3D(100,-400,100), new Color(java.awt.Color.red), new Material(1,90,201) );
+        Sphere s2 = new Sphere(new Point3D(100, -10, 400),150, new Color(0, 100, 0), new Material(1, 90, 201));
 
         scene.addGeometry(s2);
         scene.addGeometry(sphere);
+
 
 
 

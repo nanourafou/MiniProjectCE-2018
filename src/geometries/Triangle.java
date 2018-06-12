@@ -96,14 +96,15 @@ public class Triangle extends Plane {
      */
 
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay){
+        Map<Geometry, List<Point3D>> m = new HashMap<>();
         List<Point3D> lst = (super.findIntersections(myRay)).get(this); //Get the intersection of the father
-        if(lst==null)
-            return null;
+        if(lst.isEmpty())
+            return m;
 
         Point3D p = lst.get(0);
 
         if(p==null)
-            return null;
+            return m;
 
         Vector v1 = _p1.subVector(myRay.getOrigin());
         Vector v2 = _p2.subVector(myRay.getOrigin());
@@ -117,10 +118,10 @@ public class Triangle extends Plane {
         double s2 = (p.subVector(myRay.getOrigin())).dotProduct(n2);
         double s3 = (p.subVector(myRay.getOrigin())).dotProduct(n3);
 
-        Map<Geometry, List<Point3D>> m = new HashMap<>();
+
 
         if(s1==0 || s2==0 || s3==0)
-            return null;
+            return m;
         if(Tools.sameSign(new double[] {s1,s2,s3})) {
             if(!lst.isEmpty()) {
                 m.put(this, lst);
@@ -128,7 +129,7 @@ public class Triangle extends Plane {
             return m;
         }
         else
-            return null;
+            return m;
 
     }
 

@@ -7,6 +7,8 @@ public class Coordinate {
 
     private double _coordinate;
 
+    public static Coordinate ZERO =  new Coordinate(0.0);
+
     private static final int ACCURACY = -20; // Accuracy for i-dyoukim
 
     // ***************** Constructors ********************** //

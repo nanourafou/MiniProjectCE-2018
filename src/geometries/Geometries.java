@@ -39,25 +39,12 @@ public class Geometries extends Geometry {
      * @param myRay Find intersection of all composite
      * @return
      */
+
     @Override
-    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
-        List<Point3D> lst = new ArrayList<>();
-
-        Map<Geometry, List<Point3D>> map = new HashMap<>();
-
-        for (Geometry object: geometriesArrayList) {
-            Map<Geometry, List<Point3D>> m1 = object.findIntersections(myRay);
-
-            if(m1==null)
-                continue;
-
-            for (Map.Entry<Geometry, List<Point3D>> entry: m1.entrySet()){
-                Geometry key = entry.getKey();
-                List<Point3D> lst1 = entry.getValue();
-                map.put(key,lst1);
-            }
-
-            }
-            return map;
+    public Map<Geometry, List<Point3D>> findIntersections(Ray ray) {
+        Map<Geometry, List<Point3D>> intersections = new HashMap<Geometry, List<Point3D>>();
+        for (Geometry g : geometriesArrayList)
+            intersections.putAll(g.findIntersections(ray));
+        return intersections;
     }
 }

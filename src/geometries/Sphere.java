@@ -1,9 +1,7 @@
 package geometries;
 
 import elements.Color;
-import primitives.Material;
-import primitives.Point3D;
-import primitives.Ray;
+import primitives.*;
 import primitives.Vector;
 
 import java.util.*;
@@ -70,12 +68,13 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
+        Map<Geometry, List<Point3D>> m = new HashMap<>();
         Vector l = _center.subVector(myRay.getOrigin());
         double tm = l.dotProduct(myRay.getDirection());
         double d = Math.sqrt(l.size()*l.size() - tm*tm);
 
         if (d > this._radius)
-            return null;
+            return m;
 
         double th = Math.sqrt(_radius*_radius - d*d);
 
@@ -95,12 +94,41 @@ public class Sphere extends RadialGeometry {
             Point3D p2 = myRay.getOrigin().addVector(v2);
             lst.add(p2);
         }
-        Map<Geometry, List<Point3D>> m = new HashMap<>();
+
         if(!lst.isEmpty())
         {
             m.put(this,lst);
         }
         return m;
     }
+
+    /*@Override
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
+        Map<Geometry, List<Point3D>> intersec = new HashMap<Geometry, List<Point3D>>();
+        Point3D p0 = myRay.getOrigin();
+        Vector v = myRay.getDirection();
+        List<Point3D> list = new ArrayList<Point3D>();
+        Vector u = _center.subVector(p0);
+        double tm = v.dotProduct(u);
+        double d = Math.sqrt(u.dotProduct(u) - tm * tm);
+        if (d > _radius)
+            return intersec;
+        double th = Math.sqrt(_radius * _radius - d * d);
+
+        if (Coordinate.ZERO.equals(new Coordinate(th))) {
+            if (tm >= 0)
+                list.add(p0.addVector(v.mult(tm)));
+        } else {
+            double t1 = tm - th;
+            if (t1 >= 0)
+                list.add(p0.addVector(v.mult(t1)));
+            double t2 = th + tm;
+            if (t2 >= 0)
+                list.add(p0.addVector(v.mult(t2)));
+        }
+        if (!list.isEmpty())
+            intersec.put(this, list);
+        return intersec;
+    };*/
 
 }
