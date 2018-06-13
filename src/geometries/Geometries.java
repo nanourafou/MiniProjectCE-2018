@@ -16,14 +16,14 @@ public class Geometries extends Geometry {
     /**
      * @param g Add a geometry to the composite
      */
-    public void addGeometry(Geometry g){
+    public void addGeometry(Geometry g) {
         geometriesArrayList.add(g);
     }
 
     /**
      * @param g Remove the geometry from the composite
      */
-    public void removeGeometry(Geometry g){
+    public void removeGeometry(Geometry g) {
         geometriesArrayList.remove(g);
     }
 

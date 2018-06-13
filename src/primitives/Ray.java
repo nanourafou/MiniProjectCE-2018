@@ -14,7 +14,7 @@ public class Ray {
     /**
      * Construct a Ray object with a 3D point and Vector.
      */
-    public Ray(Point3D origin, Vector direction){
+    public Ray(Point3D origin, Vector direction) {
         _origin = new Point3D(origin);
         _direction = new Vector(direction).normalize();
     }
@@ -22,9 +22,9 @@ public class Ray {
     /**
      * Construct a Ray object with two 3D points.
      */
-    public Ray(Point3D origin, Point3D headVector){
+    public Ray(Point3D origin, Point3D headVector) {
         _origin = new Point3D(origin);
-        _direction =new Vector(headVector).normalize();
+        _direction = new Vector(headVector).normalize();
     }
 
 
@@ -41,31 +41,31 @@ public class Ray {
     /**
      * @return The origin point.
      */
-    public Point3D getOrigin(){
+    public Point3D getOrigin() {
         return _origin;
     }
 
     /**
      * @return The direction vector.
      */
-    public Vector getDirection(){
+    public Vector getDirection() {
         return _direction.normalize();
     }
 
     // ***************** Administration  ******************** //
     @Override
     public String toString() {
-        return "Origin "+_origin +" "+_direction;
+        return "Origin " + _origin + " " + _direction;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(this==obj)return true;
-        if(obj==null)return false;
-        if(!(obj instanceof Ray))
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Ray))
             return false;
         Ray objToCompare = (Ray) obj;
-        return objToCompare._origin.equals(this._origin)&& objToCompare._direction.equals(this._direction);
+        return objToCompare._origin.equals(this._origin) && objToCompare._direction.equals(this._direction);
 
     }
 

@@ -9,8 +9,9 @@ public class SpotLight extends PointLight {
 
     /**
      * The constructor
-     * @param c The color of the vector
-     * @param p The position of the light
+     *
+     * @param c         The color of the vector
+     * @param p         The position of the light
      * @param kc
      * @param kl
      * @param kq

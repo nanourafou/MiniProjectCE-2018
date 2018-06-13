@@ -13,12 +13,12 @@ public abstract class RadialGeometry extends Geometry {
     protected double _radius; //Vector, Point3D, double ??
 
     // ***************** Constructors ********************** //
-    public RadialGeometry(RadialGeometry x){
+    public RadialGeometry(RadialGeometry x) {
         super(x);
         _radius = x._radius;
     }
 
-    public RadialGeometry(double radius, Color clr, Material m){
+    public RadialGeometry(double radius, Color clr, Material m) {
         super(clr, m);
         _radius = radius;
     }
@@ -38,13 +38,13 @@ public abstract class RadialGeometry extends Geometry {
 
     @Override
     public String toString() {
-        return "Radius "+_radius;
+        return "Radius " + _radius;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        return _radius==((RadialGeometry)obj)._radius;
+        return _radius == ((RadialGeometry) obj)._radius;
     }
 }

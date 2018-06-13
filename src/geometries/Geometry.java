@@ -21,23 +21,26 @@ public abstract class Geometry {
 
     /**
      * Constructor
+     *
      * @param emission
      */
-    public Geometry(Color emission, Material m){
-        this._emission= new Color(emission);
+    public Geometry(Color emission, Material m) {
+        this._emission = new Color(emission);
         this._material = m;
     }
 
     /**
      * Copy Costructors
+     *
      * @param geoObj
      */
-    public Geometry(Geometry geoObj){
+    public Geometry(Geometry geoObj) {
         this._emission = new Color(geoObj._emission);
         this._material = new Material(geoObj._material);
     }
 
-    public Geometry(){}
+    public Geometry() {
+    }
 
 
     // ***************** Operations ******************** //
@@ -50,6 +53,7 @@ public abstract class Geometry {
 
     /**
      * Find the intersection between ray and the geometry
+     *
      * @param myRay The ray
      * @return A Map with the geometry and a list of points
      */
@@ -58,7 +62,9 @@ public abstract class Geometry {
     /**
      * @return Color Emission ofn the geometry
      */
-    public Color getEmission(){ return _emission;}
+    public Color getEmission() {
+        return _emission;
+    }
 
     /**
      * @return The Material

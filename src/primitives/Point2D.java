@@ -9,6 +9,7 @@ public class Point2D {
     protected Coordinate _y;
 
     // ***************** Constructors ********************** //
+
     /***
      * Construct a 2D point.
      * @param x The coordinate on the x axe.
@@ -38,6 +39,7 @@ public class Point2D {
     }
 
     // ***************** Getters/Setters ********************** //
+
     /***
      * @return _x The x coordinate.
      */
@@ -54,14 +56,15 @@ public class Point2D {
 
 
     // ***************** Administration  ******************** //
+
     /***
      * The function check if the object are equals.
      * @param obj The 2D point to compare.
      */
     @Override
     public boolean equals(Object obj) {
-        if(this==obj)return true;
-        if(obj==null)return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
         if (!(obj instanceof Point2D))
             return false;
         Point2D toCompareObj = (Point2D) obj;
@@ -70,7 +73,7 @@ public class Point2D {
 
     @Override
     public String toString() {
-        return "Point : ("+_x + ", "+ _y +")";
+        return "Point : (" + _x + ", " + _y + ")";
     }
 }
 

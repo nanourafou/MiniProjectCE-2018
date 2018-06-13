@@ -20,7 +20,7 @@ public class LightsTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
         scene.setCameraDistance(200);
 
-        Sphere sphere = new Sphere(new Point3D(0, 0, -1000),600, new Color(0, 0, 100), new Material(1, 1 , 19));
+        Sphere sphere = new Sphere(new Point3D(0, 0, -1000), 600, new Color(0, 0, 100), new Material(1, 1, 19, 0, 0));
         scene.addGeometry(sphere);
 
 
@@ -45,7 +45,7 @@ public class LightsTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
         scene.setBackground(new Color(java.awt.Color.black));
         scene.setCameraDistance(200);
-        Sphere sphere = new Sphere( new Point3D(0, 0, -1000),600, new Color(0, 0, 100), new Material(1, 1, 40));
+        Sphere sphere = new Sphere(new Point3D(0, 0, -1000), 600, new Color(0, 0, 100), new Material(1, 1, 40, 0, 0));
         scene.addGeometry(sphere);
 
         scene.getLights().add(
@@ -69,9 +69,8 @@ public class LightsTest {
         scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
         scene.setBackground(new Color(java.awt.Color.black));
         scene.setCameraDistance(200);
-        Sphere sphere = new Sphere( new Point3D(0, 0, -1000),600, new Color(0, 0, 100), new Material(1, 90, 40));
+        Sphere sphere = new Sphere(new Point3D(0, 0, -1000), 600, new Color(0, 0, 100), new Material(1, 90, 40, 0, 0));
         scene.addGeometry(sphere);
-
 
 
         scene.getLights().add(new DirectionalLight(new Color(java.awt.Color.white),new Vector(-50,-100,-10)));

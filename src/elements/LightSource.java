@@ -8,6 +8,7 @@ public interface LightSource {
 
     /**
      * Get intensity of the light
+     *
      * @param p Point
      * @return
      */
@@ -15,13 +16,13 @@ public interface LightSource {
 
     /**
      * Get Vector Light
+     *
      * @param p Point
      * @return
      */
     Vector getL(Point3D p);
 
     /**
-     *
      * @param p
      * @return
      */

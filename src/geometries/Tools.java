@@ -9,18 +9,19 @@ public class Tools {
 
     /**
      * Helper function to check equality with a multiple value in the triangle.
-     * @param x The object to verify.
+     *
+     * @param x             The object to verify.
      * @param valueToVerify Array of all the values to verify.
-     * @param valueChecked Vector contains all values checked.
+     * @param valueChecked  Vector contains all values checked.
      * @return True: if value was equals in a value in the array valueToverify.
      */
-    public static boolean checkedEqualOneToMany(Object x, Object[] valueToVerify, java.util.Vector valueChecked){
+    public static boolean checkedEqualOneToMany(Object x, Object[] valueToVerify, java.util.Vector valueChecked) {
 
-        for (int i=0;i<valueToVerify.length;i++) {
+        for (int i = 0; i < valueToVerify.length; i++) {
 
-            if(!valueChecked.contains(i)) { //if the value was checked don't check
+            if (!valueChecked.contains(i)) { //if the value was checked don't check
 
-                if(x.equals(valueToVerify[i]))  { //If equals
+                if (x.equals(valueToVerify[i])) { //If equals
                     valueChecked.add(i); //Add the index
                     return true;
                 }
@@ -30,25 +31,22 @@ public class Tools {
     }
 
 
-    public static boolean sameSign(double[] valueToveify){
+    public static boolean sameSign(double[] valueToveify) {
 
-        boolean positif=(valueToveify[0]>0)?true:false;
+        boolean positif = (valueToveify[0] > 0) ? true : false;
 
-        for (int i=0; i<valueToveify.length;i++) {
+        for (int i = 0; i < valueToveify.length; i++) {
 
-            if(i!=0){
-                if((valueToveify[i]>0 && !positif) || (valueToveify[i]<0 && positif))
+            if (i != 0) {
+                if ((valueToveify[i] > 0 && !positif) || (valueToveify[i] < 0 && positif))
                     return false;
 
-                positif=(valueToveify[i]>0)?true:false;
+                positif = (valueToveify[i] > 0) ? true : false;
             }
 
         }
         return true;
     }
-
-
-
 
 
 }

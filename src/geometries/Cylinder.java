@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * The class describing a Cylinder in space.
  */
-public class Cylinder  extends RadialGeometry{
+public class Cylinder extends RadialGeometry {
 
     private Point3D _originPoint;
     private Ray _directionRay;
@@ -20,13 +20,15 @@ public class Cylinder  extends RadialGeometry{
 
 
     // ***************** Constructors ********************** //
+
     /**
      * Constructor for a Cylinder.
+     *
      * @param directionRay Ray to define the direction and inclinaison.
-     * @param origin Original position for the cylinder.
-     * @param height The height of the cylinder.
+     * @param origin       Original position for the cylinder.
+     * @param height       The height of the cylinder.
      */
-    public Cylinder(Ray directionRay, double radius, Point3D origin, double height, Color clr, Material m){
+    public Cylinder(Ray directionRay, double radius, Point3D origin, double height, Color clr, Material m) {
         super(radius, clr, m);
         this._directionRay = new Ray(directionRay);
         this._height = height;
@@ -37,7 +39,7 @@ public class Cylinder  extends RadialGeometry{
     /**
      * Copy Constructor
      */
-    public Cylinder(Cylinder cyl){
+    public Cylinder(Cylinder cyl) {
         super(cyl);
         this._originPoint = new Point3D(cyl._originPoint);
         this._height = cyl._height;
@@ -47,17 +49,17 @@ public class Cylinder  extends RadialGeometry{
     // ***************** Administration  ******************** //
     @Override
     public String toString() {
-        return "Cylinder : \n "+ super.toString() +" \n Ray: "+_directionRay+"\n "+_originPoint+"\n "+"Height: "+_height;
+        return "Cylinder : \n " + super.toString() + " \n Ray: " + _directionRay + "\n " + _originPoint + "\n " + "Height: " + _height;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        if(!(obj instanceof Cylinder))
+        if (!(obj instanceof Cylinder))
             return false;
-        Cylinder toCompare = (Cylinder)obj;
-        return _originPoint.equals(toCompare._originPoint)&&_directionRay.equals(toCompare._directionRay)&&(_height==toCompare._height)&&super.equals(toCompare);
+        Cylinder toCompare = (Cylinder) obj;
+        return _originPoint.equals(toCompare._originPoint) && _directionRay.equals(toCompare._directionRay) && (_height == toCompare._height) && super.equals(toCompare);
     }
 
     // ***************** Getters/Setters ********************** //
@@ -94,7 +96,9 @@ public class Cylinder  extends RadialGeometry{
     }
 
     @Override
-    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay){ return null;}
+    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
+        return null;
+    }
 
 
 }

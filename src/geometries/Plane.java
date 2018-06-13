@@ -103,7 +103,7 @@ public class Plane extends Geometry {
         return _normal.normalize();
     }
 
-    @Override
+    /*@Override
     public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
 
         Map<Geometry, List<Point3D>> m = new HashMap<>();
@@ -132,5 +132,20 @@ public class Plane extends Geometry {
 
         return m;
 
+    }*/
+
+    public Map<Geometry, List<Point3D>> findIntersections(Ray ray) {
+        Map<Geometry, List<Point3D>> intersec = new HashMap<Geometry, List<Point3D>>();
+        List<Point3D> list = new ArrayList<Point3D>();
+        if (ray.getDirection().dotProduct(_normal) == 0)
+            return intersec;
+        double Nv = _normal.dotProduct(ray.getDirection());
+        double Nqp = _normal.dotProduct(_p.subVector(ray.getOrigin()));
+        double t = Nqp / Nv;
+        if (t > 0) {
+            list.add(ray.getOrigin().addVector(ray.getDirection().mult(t)));
+            intersec.put(this, list);
+        }
+        return intersec;
     }
 }

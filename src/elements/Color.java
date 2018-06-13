@@ -57,7 +57,7 @@ public class Color {
         for (Color c : colors) {
             if (c == null)
                 continue;
-            if(c._color.getRed()<0 || c._color.getGreen()<0 || c._color.getBlue()<0) {
+            if (c._color.getRed() < 0 || c._color.getGreen() < 0 || c._color.getBlue() < 0) {
                 double bb = 0.11;
             }
             r += c._color.getRed();
@@ -137,10 +137,10 @@ public class Color {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Color) && obj==null)
+        if (!(obj instanceof Color) && obj == null)
             return false;
         Color c = (Color) obj;
-        return _color.getBlue()==c._color.getBlue() && _color.getGreen()==c._color.getGreen() && _color.getRed()==c._color.getRed();
+        return _color.getBlue() == c._color.getBlue() && _color.getGreen() == c._color.getGreen() && _color.getRed() == c._color.getRed();
     }
 
     /**

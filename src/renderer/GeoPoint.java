@@ -8,12 +8,12 @@ public class GeoPoint {
     private Point3D _point;
     private Geometry _geometry;
 
-    public GeoPoint(Point3D p, Geometry g){
+    public GeoPoint(Point3D p, Geometry g) {
         this._geometry = g;
         this._point = new Point3D(p);
     }
 
-    public GeoPoint(GeoPoint geo){
+    public GeoPoint(GeoPoint geo) {
         this._point = new Point3D(geo._point);
         this._geometry = geo._geometry;
     }

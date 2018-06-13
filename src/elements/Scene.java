@@ -52,12 +52,12 @@ public class Scene {
     /**
      * Default constructor for the scene
      */
-    public Scene(){
-        this._name="Scene 1";
+    public Scene() {
+        this._name = "Scene 1";
         this._background = new Color(java.awt.Color.GRAY);
-        this._camera = new Camera(new Point3D(0,0,0),new Vector(0,0,-1), new Vector(0,-1,0));
+        this._camera = new Camera(new Point3D(0, 0, 0), new Vector(0, 0, -1), new Vector(0, -1, 0));
         this._cameraDistance = 100;
-        this._ambientLight = new AmbientLight(java.awt.Color.GRAY,1);
+        this._ambientLight = new AmbientLight(java.awt.Color.GRAY, 1);
         this._geometriesManager = new Geometries();
         this._lights = new ArrayList<>();
 
@@ -66,8 +66,8 @@ public class Scene {
     /**
      * Default constructor for the scene
      */
-    public Scene(String name){
-        this._name=name;
+    public Scene(String name) {
+        this._name = name;
         this._background = new Color(java.awt.Color.black);
         this._camera = null;
         this._cameraDistance = 0;
@@ -78,19 +78,20 @@ public class Scene {
 
     /**
      * Constructor for the Scene
-     * @param name The name of the scene
-     * @param background The background of the scene
-     * @param c The camera of the scene
+     *
+     * @param name           The name of the scene
+     * @param background     The background of the scene
+     * @param c              The camera of the scene
      * @param screenDistance The distance between the camera and the scene
      */
-    public Scene(String name,Color background, Camera c, AmbientLight amb, double screenDistance, List<LightSource> lights){
-        this._name= name;
+    public Scene(String name, Color background, Camera c, AmbientLight amb, double screenDistance, List<LightSource> lights) {
+        this._name = name;
         this._background = background;
         this._camera = c;
         this._cameraDistance = screenDistance;
         this._ambientLight = amb;
         this._geometriesManager = new Geometries();
-        if(lights!=null)
+        if (lights != null)
             this._lights = new ArrayList<>(lights);
 
         else
@@ -99,16 +100,17 @@ public class Scene {
 
     /**
      * Add a geometry in the scence.
+     *
      * @param g The geometry to add
      */
-    public void addGeometry(Geometry g){
+    public void addGeometry(Geometry g) {
         _geometriesManager.addGeometry(g);
     }
 
     /**
      * @return Getter for the background
      */
-    public Color getBackground(){
+    public Color getBackground() {
         return _background;
     }
 
@@ -169,7 +171,7 @@ public class Scene {
     /**
      * @param _camera Setter of the Camera
      */
-    public void setCamera(Camera _camera){
+    public void setCamera(Camera _camera) {
         this._camera = _camera;
     }
 
