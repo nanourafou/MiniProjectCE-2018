@@ -136,13 +136,13 @@ public class Plane extends Geometry {
 
     public Map<Geometry, List<Point3D>> findIntersections(Ray ray) {
         Map<Geometry, List<Point3D>> intersec = new HashMap<Geometry, List<Point3D>>();
-        List<Point3D> list = new ArrayList<Point3D>();
-        if (ray.getDirection().dotProduct(_normal) == 0)
+        double nv = _normal.dotProduct(ray.getDirection());
+        if (nv == 0)
             return intersec;
-        double Nv = _normal.dotProduct(ray.getDirection());
         double Nqp = _normal.dotProduct(_p.subVector(ray.getOrigin()));
-        double t = Nqp / Nv;
+        double t = Nqp / nv;
         if (t > 0) {
+            List<Point3D> list = new ArrayList<Point3D>();
             list.add(ray.getOrigin().addVector(ray.getDirection().mult(t)));
             intersec.put(this, list);
         }

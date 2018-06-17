@@ -7,14 +7,16 @@ public class Coordinate {
 
     private double _coordinate;
 
-    public static Coordinate ZERO = new Coordinate(0.0);
-
     private static final int ACCURACY = -20; // Accuracy for i-dyoukim
+
+    public static boolean isZero(double number) {
+        return getExp(number) < ACCURACY;
+    }
 
     // ***************** Constructors ********************** //
 
     /***
-     * Constructor of Coordinate.
+     * This function is the Constructor of Coordinate.
      * @param coordinate : The coordinate of the point.
      */
     public Coordinate(double coordinate) {
@@ -22,7 +24,7 @@ public class Coordinate {
     }
 
     /**
-     * Copy Constructor.
+     * This function is the Copy Constructor.
      *
      * @param c
      */
@@ -57,6 +59,8 @@ public class Coordinate {
     // ***************** Operations ******************** //
 
     /**
+     * This function is the difference between two coordinates.
+     * It take attention to the no precise coordinate.
      * @param other The other Coordinate
      * @return The substraction between Coordinates
      */
@@ -79,6 +83,8 @@ public class Coordinate {
 
 
     /**
+     * This function is the addition between two coordinates
+     * It take attention to the no precise coordinate.
      * @param other The other Coordinate
      * @return The addition between Coordinates
      */
@@ -111,7 +117,7 @@ public class Coordinate {
      * @param num The Coordinate
      * @return Get the exp filed of a bytes number
      */
-    private int getExp(double num) {
+    private static int getExp(double num) {
         return (int) ((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
     }
 

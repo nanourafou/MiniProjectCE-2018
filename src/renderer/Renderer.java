@@ -97,7 +97,7 @@ public class Renderer {
      */
     private Color calcColor(GeoPoint geopoint, Ray inRay, int level, double k) {
 
-        if (level == 0 || Coordinate.ZERO.equals(new Coordinate(k)))
+        if (level == 0 || Coordinate.isZero(k))
             return new Color(0, 0, 0);
 
         Color ip = _scene.getAmbientLight().getIntensity();
@@ -118,7 +118,7 @@ public class Renderer {
                 }
                 o = occluded(l, geopoint, distance);
 
-                if (!(Coordinate.ZERO.equals(new Coordinate(o * k)))) {
+                if (!(Coordinate.isZero(o * k))) {
                     Color lightIntensity = lsource.getIntensity(geopoint.getPoint()).scale(o);
                     ip = ip.add(calcDiffusive(Kd, l, n, lightIntensity),
                             calcSpecular(Ks, l, n, v, nShininess, lightIntensity));
@@ -127,7 +127,7 @@ public class Renderer {
         }
 
 
-        Ray reflectedRay = constructReflectedRay(geopoint.getGeometry().getNormal(geopoint.getPoint()), geopoint.getPoint(), inRay);
+        Ray reflectedRay = constructReflectedRay(n, geopoint.getPoint(), inRay);
         Map.Entry<Geometry, Point3D> reflectedEntry = findClosestIntersection(reflectedRay);
         double kr = geopoint.getGeometry().getMaterial().getKr();
         Color reflected = new Color(0, 0, 0);

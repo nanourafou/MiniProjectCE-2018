@@ -106,11 +106,11 @@ public class Triangle extends Plane {
         Vector N1 = v1.crossProdcut(v2);
         Vector N2 = v2.crossProdcut(v3);
         Vector N3 = v3.crossProdcut(v1);
-        double arr[] = new double[]{N1.dotProduct((p.subVector(ray.getOrigin()))), N2.dotProduct((p.subVector(ray.getOrigin()))),
-                N3.dotProduct((p.subVector(ray.getOrigin())))};
+        Vector u = p.subVector(ray.getOrigin());
+        double arr[] = new double[]{N1.dotProduct(u), N2.dotProduct(u), N3.dotProduct(u)};
         int positive = 3, negative = 3;
         for (int i = 0; i < 3; i++) {
-            if (Coordinate.ZERO.equals(new Coordinate(arr[i]))) {
+            if (Coordinate.isZero(arr[i])) {
                 intersec.clear();
                 return intersec;
             }

@@ -25,11 +25,8 @@ public class ShadowTest {
         Sphere sphere = new Sphere(new Point3D(0, 0, -1000), 600, new Color(0, 0, 100), new Material(1, 90, 201, 0.2, 0.2));
 
         Sphere s2 = new Sphere(new Point3D(100, 100, -400), 150, new Color(0, 100, 0), new Material(1, 90, 201, 0.1, 0));
-
-        Plane p = new Plane(new Vector(0, 1, 0), new Point3D(0, 0, 0), new Color(java.awt.Color.black), new Material(1, 20, 200, 0.5, 0.5));
         scene.addGeometry(s2);
         scene.addGeometry(sphere);
-        //scene.addGeometry(p);
 
 
         scene.getLights().add(new PointLight(new Color(250, 150, 150), new Point3D(200, 200, -100), 1, 0.0, 0.0000005));

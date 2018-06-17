@@ -80,7 +80,7 @@ public class Sphere extends RadialGeometry {
             return intersec;
         double th = Math.sqrt(_radius * _radius - d * d);
 
-        if (Coordinate.ZERO.equals(new Coordinate(th))) {
+        if (Coordinate.isZero(th)) {
             if (tm >= 0)
                 list.add(p0.addVector(v.mult(tm)));
         } else {
