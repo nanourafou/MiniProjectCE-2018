@@ -4,21 +4,25 @@ import elements.Color;
 import elements.LightSource;
 import elements.PointLight;
 import elements.Scene;
+import geometries.Geometries;
 import geometries.Geometry;
 import primitives.Coordinate;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Renderer {
 
     private Scene _scene;
     private ImageWriter _imgWrter;
     private static int MAX_RECURSION_LEVEL = 3;
+    private static int SUPER_SAMPLING = 1;
 
 
     /**
@@ -64,7 +68,7 @@ public class Renderer {
     /**
      * Generate a Image
      */
-    public void renderImage() {
+    public void renderImageNotSS() {
         for (int i = 0; i < _imgWrter.getHeight(); i++) {
             for (int j = 0; j < _imgWrter.getWidth(); j++) {
                 Ray ray = _scene.getCamera().constructRayThoughPixel(_imgWrter.getNx(), _imgWrter.getNy(), j, i,
@@ -74,14 +78,104 @@ public class Renderer {
                 if (closestPoint == null) {
                     _imgWrter.writePixel(j, i, _scene.getBackground().getColor());
                 } else {
+
                     Map.Entry<Geometry, Point3D> gEntry = closestPoint.entrySet().iterator().next();
                     Color temp = calcColor(new GeoPoint(gEntry.getValue(), gEntry.getKey()), ray);
                     _imgWrter.writePixel(j, i, temp.getColor());
+
+                }
+            }
+        }
+    }
+    public void renderImage() {
+        for (int i = 0; i < _imgWrter.getHeight(); i++) {
+            for (int j = 0; j < _imgWrter.getWidth(); j++) {
+                ArrayList<Ray> rayArrayList = _scene.getCamera().constructRayThrowAPixel2(_imgWrter.getNx(), _imgWrter.getNy(), j, i,
+                        _scene.getCameraDistance(), _imgWrter.getWidth(), _imgWrter.getHeight());
+
+                boolean isVisible = false;
+                double re=0,gr=0,bl=0;
+                boolean firstRay=true;
+                double coefficient;
+                for (Ray ray : rayArrayList) {
+                    Map<Geometry, Point3D> closestPoint = getClosestPoint(_scene.getGeometriesManager().findIntersections(ray));
+
+
+                    if (closestPoint == null) {
+                        isVisible = false;
+                        _imgWrter.writePixel(j, i, _scene.getBackground().getColor());
+                    } else {
+
+                        if(firstRay) {
+                            coefficient = 0.8;
+                            firstRay=false;
+                        }
+                        else
+                            coefficient = 0.2;
+
+                        isVisible = true;
+                        Map.Entry<Geometry, Point3D> gEntry = closestPoint.entrySet().iterator().next();
+                        Color temp = calcColor(new GeoPoint(gEntry.getValue(), gEntry.getKey()), ray);
+                        re += temp.getColor().getRed()*coefficient;
+                        gr += temp.getColor().getGreen()*coefficient;
+                        bl += temp.getColor().getBlue()*coefficient;
+                    }
+                }
+
+                double scaler = 1.6;
+                if(isVisible){
+                    Color c = new Color(re/scaler,gr/scaler,bl/scaler);
+                    _imgWrter.writePixel(j, i, c.getColor());
                 }
             }
         }
     }
 
+
+   /* public void renderImfkjfage() {
+
+        for (int i = 0; i < imageWriter.getWidth(); i++)// עבור כל פיקסל )נקודה לפי X Y ( שיש במשטח הצפייה
+            for (int j = 0; j < imageWriter.getHeight(); j++) {
+                int avgR = 0;
+                int avgG = 0;
+                int avgB = 0;
+                ArrayList<Ray> rays = scene.getCamera().constructRayThrowAPixel2(imageWriter.getNx(), imageWriter.getNy(), j, i,
+                        scene.getScreenDistance(), imageWriter.getWidth(), imageWriter.getHeight());// ייצר קרן חדש דרך
+                boolean flag = true;                                                                                // הפיקסל המסוים הזה
+                //Color avg=new Color(0, 0, 0);
+                for (Iterator<Ray> iterator = rays.iterator(); iterator.hasNext(); ) {
+                    Ray rr = iterator.next();
+
+
+                    Map<Geometries, ArrayList<Point3D>> intersectionPoints = getSceneRayIntersections(rr);// נגדיר רשימה של
+                    // נקודות חיתוך
+                    // שיצרנו
+                    rr.getDirection().normalize();
+                    if (intersectionPoints.isEmpty()) {
+                        flag = false;
+                        imageWriter.writePixel(j, i, scene.getBackGround());// ובה נשים את הצבע שדרוש עבור אותה נקודה
+                    } else {
+                        flag = true;
+                        Map<Geometries, Point3D> closestPoint = getClosestPoint(intersectionPoints);
+                        avgR += calcColor(closestPoint.entrySet().iterator().next().getKey(),
+                                closestPoint.entrySet().iterator().next().getValue(), rr).getRed();
+                        avgG += calcColor(closestPoint.entrySet().iterator().next().getKey(),
+                                closestPoint.entrySet().iterator().next().getValue(), rr).getGreen();
+                        avgB += calcColor(closestPoint.entrySet().iterator().next().getKey(),
+                                closestPoint.entrySet().iterator().next().getValue(), rr).getBlue();
+
+
+                    }
+
+
+                }
+                if (flag)
+
+                    imageWriter.writePixel(j, i, avarage(avgR, avgG, avgB, 5));
+
+            }
+
+    }*/
 
     /**
      * Write to image function
