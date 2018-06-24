@@ -1,9 +1,12 @@
 package elements;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Color {
 
     private java.awt.Color _color;
-
+    
 
     /**
      * Constructor for a color
@@ -132,6 +135,32 @@ public class Color {
         _color = new java.awt.Color((int) red, (int) g, (int) b);
 
         return this;
+    }
+
+    /**
+     * Reduce the color By a double
+     *
+     * @param r The double operand
+     */
+    public static Color random(int min, int max) {
+        int red = ThreadLocalRandom.current().nextInt(min, max);
+        int g = ThreadLocalRandom.current().nextInt(min, max);
+        int b = ThreadLocalRandom.current().nextInt(min, max);
+        if (red < 0)
+            red = 0;
+        if (red > 255)
+            red = 255;
+        if (g < 0)
+            g = 0;
+        if (g > 255)
+            g = 255;
+        if (b < 0)
+            b = 0;
+        if (b > 255)
+            b = 255;
+
+
+        return new Color(red,g,b);
     }
 
 

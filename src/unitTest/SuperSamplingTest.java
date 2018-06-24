@@ -23,7 +23,7 @@ public class SuperSamplingTest {
         scene.addGeometry(sphere);
 
 
-        scene.getLights().add(new PointLight(new Color(250, 150, 150), new Point3D(-200, -200, -100), 1, 0.00000006, 0.0000005));
+        //scene.getLights().add(new PointLight(new Color(250, 150, 150), new Point3D(-200, -200, -100), 1, 0.00000006, 0.0000005));
 
 
         ImageWriter imageWriter = new ImageWriter(scene.getName(), 500, 500, 500, 500);
@@ -47,7 +47,7 @@ public class SuperSamplingTest {
         scene.addGeometry(sphere);
 
 
-        scene.getLights().add(new PointLight(new Color(250, 150, 150), new Point3D(-200, -200, -100), 1, 0.00000006, 0.0000005));
+        //scene.getLights().add(new PointLight(new Color(250, 150, 150), new Point3D(-200, -200, -100), 1, 0.00000006, 0.0000005));
 
 
         ImageWriter imageWriter = new ImageWriter(scene.getName(), 500, 500, 500, 500);
