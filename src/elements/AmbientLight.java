@@ -6,6 +6,7 @@ public class AmbientLight extends Light {
 
 
     /**
+     * This function is the Constructor for AmbientLight
      * @param c  Color
      * @param ka The intensity of the color
      */
@@ -15,7 +16,7 @@ public class AmbientLight extends Light {
     }
 
     /**
-     * This functio is the constructor for awt color
+     * This function is the constructor for awt color
      *
      * @param c  Color (From java)
      * @param ka The intensity of the color
@@ -25,6 +26,10 @@ public class AmbientLight extends Light {
         this._ka = ka;
     }
 
+    /**
+     * This is the copy constructor
+     * @param light
+     */
     public AmbientLight(AmbientLight light) {
         super(light);
         this._ka = light._ka;
@@ -34,7 +39,7 @@ public class AmbientLight extends Light {
      * @return The intensity of the point I
      */
     public Color getIntensity() {
-        Color c = new Color(_color); //We need to modify the original color - not optimal
+        Color c = new Color(_color);
         return c.scale(_ka);
     }
 }

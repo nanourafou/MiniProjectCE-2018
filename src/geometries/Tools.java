@@ -5,7 +5,6 @@ package geometries;
  */
 public class Tools {
 
-    //Matrix operations on Algebra ???
 
     /**
      * Helper function to check equality with a multiple value in the triangle.
@@ -30,23 +29,6 @@ public class Tools {
         return false;
     }
 
-
-    public static boolean sameSign(double[] valueToveify) {
-
-        boolean positif = (valueToveify[0] > 0) ? true : false;
-
-        for (int i = 0; i < valueToveify.length; i++) {
-
-            if (i != 0) {
-                if ((valueToveify[i] > 0 && !positif) || (valueToveify[i] < 0 && positif))
-                    return false;
-
-                positif = (valueToveify[i] > 0) ? true : false;
-            }
-
-        }
-        return true;
-    }
 
 
 }

@@ -138,9 +138,10 @@ public class Color {
     }
 
     /**
-     * Reduce the color By a double
-     *
-     * @param r The double operand
+     * Generate a Random Color
+     * @param min The minimum number
+     * @param max The maximun number
+     * @return
      */
     public static Color random(int min, int max) {
         int red = ThreadLocalRandom.current().nextInt(min, max);

@@ -4,7 +4,6 @@ import elements.Color;
 import elements.LightSource;
 import elements.PointLight;
 import elements.Scene;
-import geometries.Geometries;
 import geometries.Geometry;
 import primitives.Coordinate;
 import primitives.Point3D;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Renderer {
 
@@ -66,7 +64,7 @@ public class Renderer {
     }
 
     /**
-     * Generate a Image
+     * Generate a Image without SuperSampling
      */
     public void renderImageNotSS() {
         for (int i = 0; i < _imgWrter.getHeight(); i++) {
@@ -87,10 +85,14 @@ public class Renderer {
             }
         }
     }
+
+    /**
+     * Render An Image with super-sampling(5 rays)
+     */
     public void renderImage() {
         for (int i = 0; i < _imgWrter.getHeight(); i++) {
             for (int j = 0; j < _imgWrter.getWidth(); j++) {
-                ArrayList<Ray> rayArrayList = _scene.getCamera().constructRayThrowAPixel2(_imgWrter.getNx(), _imgWrter.getNy(), j, i,
+                ArrayList<Ray> rayArrayList = _scene.getCamera().constructRayThrowAPixelSuperSampling(_imgWrter.getNx(), _imgWrter.getNy(), j, i,
                         _scene.getCameraDistance(), _imgWrter.getWidth(), _imgWrter.getHeight());
 
                 double re=0,gr=0,bl=0;
@@ -100,37 +102,35 @@ public class Renderer {
                 for (Ray ray : rayArrayList) {
                     Map<Geometry, Point3D> closestPoint = getClosestPoint(_scene.getGeometriesManager().findIntersections(ray));
 
-                    if(firstRay) {
+                    if(firstRay) {//Middle Point Ray
                         coefficient = 0.8;
                         firstRay=false;
-                    }
-                    else
+                    } else
                         coefficient = 0.1;
 
 
-                    //coefficient = 1;
-
+                    Color temp = null;
                     if (closestPoint == null) {
-                        //_imgWrter.writePixel(j, i, _scene.getBackground().getColor());
-                        Color temp = _scene.getBackground();
-                        re += temp.getColor().getRed()*coefficient;
-                        gr += temp.getColor().getGreen()*coefficient;
-                        bl += temp.getColor().getBlue()*coefficient;
+                        temp = _scene.getBackground();
                     } else {
                         Map.Entry<Geometry, Point3D> gEntry = closestPoint.entrySet().iterator().next();
-                        Color temp = calcColor(new GeoPoint(gEntry.getValue(), gEntry.getKey()), ray);
-                        re += temp.getColor().getRed()*coefficient;
-                        gr += temp.getColor().getGreen()*coefficient;
-                        bl += temp.getColor().getBlue()*coefficient;
+                        temp = calcColor(new GeoPoint(gEntry.getValue(), gEntry.getKey()), ray);
+
                     }
+
+                    if (temp != null) {
+                        re += temp.getColor().getRed() * coefficient;
+                        gr += temp.getColor().getGreen() * coefficient;
+                        bl += temp.getColor().getBlue() * coefficient;
+                    }
+
 
                 }
 
                 double scaler = 1.2;
-                if(true){
-                    Color c = new Color(re/scaler,gr/scaler,bl/scaler);
-                    _imgWrter.writePixel(j, i, c.getColor());
-                }
+                Color c = new Color(re / scaler, gr / scaler, bl / scaler);
+                _imgWrter.writePixel(j, i, c.getColor());
+
             }
         }
     }

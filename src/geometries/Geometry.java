@@ -39,8 +39,8 @@ public abstract class Geometry {
         this._material = new Material(geoObj._material);
     }
 
-    public Geometry() {
-    }
+
+    public Geometry() { }
 
 
     // ***************** Operations ******************** //

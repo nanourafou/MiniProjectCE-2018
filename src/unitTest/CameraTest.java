@@ -14,21 +14,11 @@ public class CameraTest  {
     Point3D p1=new Point3D(0,0,0);
     Point3D p2=new Point3D(-3,3,-3);
 
-    Ray r11=new Ray(p1,new Vector(-1/Math.sqrt(6),1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
-    Ray r12=new Ray(p1,new Vector(1/Math.sqrt(6),-1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
-    Ray r13=new Ray(p1,new Vector(1/Math.sqrt(6),1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
-    Ray r14=new Ray(p1,new Vector(-1/Math.sqrt(6),-1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
+    Ray r11=new Ray(p1,new Vector(1/Math.sqrt(6),1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
+    Ray r12=new Ray(p1,new Vector(-1/Math.sqrt(6),-1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
+    Ray r13=new Ray(p1,new Vector(-1/Math.sqrt(6),1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
+    Ray r14=new Ray(p1,new Vector(1/Math.sqrt(6),-1/Math.sqrt(6),-Math.sqrt(2)/Math.sqrt(3)));
     Ray r15=new Ray(p1,new Vector(0,0,-1));
-
-
-    //@Test
-    public void createCameraTest(){
-        assertThrows(Exception.class,()->{Camera z = new Camera(new Point3D(2,4,5), new Vector(2,5,4), new Vector(4,10,8));}); // Colinear Vector test
-
-        Camera c = new Camera(new Point3D(2,4,5), new Vector(2,5,4), new Vector(4,5,8));
-        assertNotNull(c);
-        System.out.println("Camera Created :\n "+ c);
-    }
 
 
     @Test
@@ -46,7 +36,7 @@ public class CameraTest  {
 
         Camera c = new Camera(new Point3D(0,0,0),new Vector(0,0,-1),new Vector(0,-1,0));
         Ray t = c.constructRayThoughPixel(3,3,3,3,100,150,150);
-        Ray r = new Ray(new Point3D(0,0,0),(new Vector(-50,50,-100)).normalize());
+        Ray r = new Ray(new Point3D(0,0,0),(new Vector(50,50,-100)).normalize());
         assertEquals(r,t);
     }
 

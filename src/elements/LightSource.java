@@ -8,7 +8,6 @@ public interface LightSource {
 
     /**
      * Get intensity of the light
-     *
      * @param p Point
      * @return
      */

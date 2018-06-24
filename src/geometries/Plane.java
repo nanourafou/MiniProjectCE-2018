@@ -103,37 +103,12 @@ public class Plane extends Geometry {
         return _normal.normalize();
     }
 
-    /*@Override
-    public Map<Geometry, List<Point3D>> findIntersections(Ray myRay) {
 
-        Map<Geometry, List<Point3D>> m = new HashMap<>();
-
-
-        double denom = _normal.dotProduct(myRay.getDirection());
-
-        if (denom == 0)
-            return m; //prevent divide by zero
-
-        Vector d = this._p.subVector(myRay.getOrigin());
-
-        double t = _normal.dotProduct(d) / denom;
-
-        Vector v = myRay.getDirection().mult(t);
-
-        Point3D p = myRay.getOrigin().addVector(v);
-
-
-        List<Point3D> lst = new ArrayList<>();
-
-        if (p != null)
-            lst.add(p);
-        if (!lst.isEmpty())
-            m.put(this, lst);
-
-        return m;
-
-    }*/
-
+    /**
+     * The FindIntersection function
+     * @param ray
+     * @return
+     */
     public Map<Geometry, List<Point3D>> findIntersections(Ray ray) {
         Map<Geometry, List<Point3D>> intersec = new HashMap<Geometry, List<Point3D>>();
         double nv = _normal.dotProduct(ray.getDirection());

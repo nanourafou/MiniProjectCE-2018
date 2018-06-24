@@ -9,8 +9,7 @@ public class DirectionalLight extends Light implements LightSource {
 
 
     /**
-     * The Ctor
-     *
+     * The Constructor
      * @param c          The color of the light
      * @param _direction The Direction vector
      */
@@ -20,8 +19,7 @@ public class DirectionalLight extends Light implements LightSource {
     }
 
     /**
-     * Copy Ctor
-     *
+     * Copy Constructor
      * @param l The directionnal Light to copy
      */
     public DirectionalLight(DirectionalLight l) {
